@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Authors>Bee.NET</Authors>
 		<Company>Bee.NET</Company>
 		<Product>Bee.NET</Product>
@@ -15,6 +15,7 @@
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/jeff377/bee-oauth2</RepositoryUrl>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
