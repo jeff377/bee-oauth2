@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Version>1.0.3</Version>
+		<Authors>Bee.NET</Authors>
+		<Company>Bee.NET</Company>
+		<Product>Bee.NET</Product>
+		<Copyright>© Bee.NET. All rights reserved.</Copyright>
+		<Description>Bee.OAuth2.WinForms is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports Google, Facebook, LINE, and Azure authentication with an easy-to-use UI component.</Description>
+		<PackageIcon>bee.png</PackageIcon>
+		<PackageTags>OAuth2 WinForms</PackageTags>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\bee.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Bee.Base" Version="3.0.2" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Bee.OAuth2\Bee.OAuth2.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<Reference Include="System.Web" />
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<None Update="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>

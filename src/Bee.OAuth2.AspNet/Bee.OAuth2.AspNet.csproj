@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<Version>1.0.2</Version>
+		<Authors>Bee.NET</Authors>
+		<Company>Bee.NET</Company>
+		<Product>Bee.NET</Product>
+		<Copyright>© Bee.NET. All rights reserved.</Copyright>
+		<Description>Bee.OAuth2.AspNet is an OAuth2 authentication library designed for ASP.NET WebForms / MVC, supporting Google, Facebook, LINE, and Azure.</Description>		
+		<PackageIcon>bee.png</PackageIcon>
+		<PackageTags>OAuth2 ASP.NET WebForms/MVC</PackageTags>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<DocumentationFile></DocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\bee.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Bee.Base" Version="3.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Bee.OAuth2\Bee.OAuth2.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <Reference Include="System.Web" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
