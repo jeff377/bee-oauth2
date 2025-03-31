@@ -24,7 +24,7 @@ namespace Bee.OAuth2.AspNet
         {
             get
             {
-                if (BaseFunc.IsNull(_StateStorage))
+                if (_StateStorage == null)
                     _StateStorage = new TStateStorage();
                 return _StateStorage;
             }

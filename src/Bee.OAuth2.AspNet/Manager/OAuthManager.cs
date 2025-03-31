@@ -20,7 +20,7 @@ namespace Bee.OAuth2.AspNet
         {
             get
             {
-                if (BaseFunc.IsNull(_Clients))
+                if (_Clients == null)
                     _Clients = new Dictionary<string, TOAuthClient>();
                 return _Clients;
             }
