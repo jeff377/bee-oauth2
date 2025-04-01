@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bee.OAuth2.AspNet", "src\Be
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D368F841-FE36-4A7F-BD66-8B655EC29392}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bee.OAuth2.Desktop", "src\Bee.OAuth2.Desktop\Bee.OAuth2.Desktop.csproj", "{8F395089-5383-4EC0-A6BB-03540099DD40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{025EC9BD-0767-4755-8E2A-8D114A884A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{025EC9BD-0767-4755-8E2A-8D114A884A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{025EC9BD-0767-4755-8E2A-8D114A884A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F395089-5383-4EC0-A6BB-03540099DD40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F395089-5383-4EC0-A6BB-03540099DD40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F395089-5383-4EC0-A6BB-03540099DD40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F395089-5383-4EC0-A6BB-03540099DD40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +43,9 @@ Global
 		{2BB23F4B-68CF-417D-97CB-01CB14FC61EC} = {D368F841-FE36-4A7F-BD66-8B655EC29392}
 		{D330B5D2-EC61-413B-8AC2-C1DC83D8F751} = {D368F841-FE36-4A7F-BD66-8B655EC29392}
 		{025EC9BD-0767-4755-8E2A-8D114A884A78} = {D368F841-FE36-4A7F-BD66-8B655EC29392}
+		{8F395089-5383-4EC0-A6BB-03540099DD40} = {D368F841-FE36-4A7F-BD66-8B655EC29392}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {117BAFD6-7714-4E7D-870B-0AEA11BDF273}
 	EndGlobalSection
 EndGlobal
