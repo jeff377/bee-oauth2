@@ -37,7 +37,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Bee.Base" Version="3.0.5" />
-		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
+		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3124.44" />
 	</ItemGroup>
 
 	<ItemGroup>
