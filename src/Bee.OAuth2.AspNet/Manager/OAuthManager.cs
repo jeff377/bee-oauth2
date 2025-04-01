@@ -11,16 +11,11 @@ namespace Bee.OAuth2.AspNet
     /// </summary>
     public static class OAuthManager
     {
-        private static Dictionary<string, TOAuthClient> _clients = new Dictionary<string, TOAuthClient>();
-
         /// <summary>
         /// 存放 OAuth2 用戶端的集合。
         /// </summary>
-        private static Dictionary<string, TOAuthClient> Clients
-        {
-            get { return _clients; }
-        }
-
+        private static Dictionary<string, TOAuthClient> Clients { get; } = new Dictionary<string, TOAuthClient>();
+ 
         /// <summary>
         /// 註冊 OAuth2 用戶端。
         /// </summary>
@@ -33,7 +28,6 @@ namespace Bee.OAuth2.AspNet
 
             if (client == null)
                 throw new ArgumentNullException(nameof(client), "OAuth2 client instance cannot be null.");
-
 
             Clients[clientName] = client;
         }
