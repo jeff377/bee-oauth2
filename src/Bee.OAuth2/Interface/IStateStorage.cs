@@ -25,7 +25,7 @@ namespace Bee.OAuth2
         void RemoveState();
 
         /// <summary>
-        /// 儲存 `code_Verifier` 資料，暫存 PKCE 驗證的 `code_Verifier` 參數，以便後續驗證。。
+        /// 儲存 `code_Verifier` 資料，暫存 PKCE 驗證的 `code_Verifier` 參數，以便後續驗證。
         /// </summary>
         /// <param name="codeVerifier">用戶端隨機產生的 `code_Verifier`  字串。</param>
         void SaveCodeVerifier(string codeVerifier);
