@@ -11,19 +11,14 @@ namespace Bee.OAuth2.AspNet
     /// </summary>
     public static class OAuthManager
     {
-        private static Dictionary<string, TOAuthClient> _Clients = null;
+        private static Dictionary<string, TOAuthClient> _clients = new Dictionary<string, TOAuthClient>();
 
         /// <summary>
         /// 存放 OAuth2 用戶端的集合。
         /// </summary>
         private static Dictionary<string, TOAuthClient> Clients
         {
-            get
-            {
-                if (_Clients == null)
-                    _Clients = new Dictionary<string, TOAuthClient>();
-                return _Clients;
-            }
+            get { return _clients; }
         }
 
         /// <summary>
@@ -33,8 +28,12 @@ namespace Bee.OAuth2.AspNet
         /// <param name="client">OAuth2 用戶端。</param>
         public static void RegisterClient(string clientName, TOAuthClient client)
         {
-            if (string.IsNullOrEmpty(clientName) || client == null)
-                throw new ArgumentNullException("Client name and instance cannot be null.");
+            if (string.IsNullOrWhiteSpace(clientName))
+                throw new ArgumentException("Client name cannot be null or empty.", nameof(clientName));
+
+            if (client == null)
+                throw new ArgumentNullException(nameof(client), "OAuth2 client instance cannot be null.");
+
 
             Clients[clientName] = client;
         }
@@ -46,9 +45,11 @@ namespace Bee.OAuth2.AspNet
         public static TOAuthClient GetClient(string clientName)
         {
             if (Clients.TryGetValue(clientName, out var client))
+            {
                 return client;
+            }
 
-            throw new KeyNotFoundException($"OAuth client '{clientName}' not found.");
+            return null;
         }
 
         /// <summary>
@@ -86,7 +87,7 @@ namespace Bee.OAuth2.AspNet
                 var client = GetClient(clientName);
                 if (!client.ValidateState(state))
                 {
-                    throw new Exception("Validate state error");
+                    throw new InvalidOperationException("Invalid OAuth2 state.");
                 }
                 return await client.ValidateAuthorization(code);
             }

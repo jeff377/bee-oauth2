@@ -9,8 +9,8 @@ namespace Bee.OAuth2
     /// </summary>
     public abstract class TBaseOAuthClient
     {
-        private IOAuthProvider _Provider = null;
-        private bool _UsePKCE = false;
+        private IOAuthProvider _provider = null;
+        private bool _usePKCE = false;
 
         /// <summary>
         /// 建構函式。
@@ -18,15 +18,15 @@ namespace Bee.OAuth2
         /// <param name="options">OAuth2 設定選項。</param>
         public TBaseOAuthClient(TOAuthOptions options)
         {
-            _UsePKCE = options.UsePKCE;
+            _usePKCE = options.UsePKCE;
             if (options is TGoogleOAuthOptions)
-                _Provider = new TGoogleOAuthProvider(options as TGoogleOAuthOptions);
+                _provider = new TGoogleOAuthProvider(options as TGoogleOAuthOptions);
             else if (options is TLineOAuthOptions)
-                _Provider = new TLineOAuthProvider(options as TLineOAuthOptions);
+                _provider = new TLineOAuthProvider(options as TLineOAuthOptions);
             else if (options is TAzureOAuthOptions)
-                _Provider = new TAzureOAuthProvider(options as TAzureOAuthOptions);
+                _provider = new TAzureOAuthProvider(options as TAzureOAuthOptions);
             else if (options is TFacebookOAuthOptions)
-                _Provider = new TFacebookOAuthProvider(options as TFacebookOAuthOptions);
+                _provider = new TFacebookOAuthProvider(options as TFacebookOAuthOptions);
             else
                 throw new NotSupportedException();
         }
@@ -36,7 +36,7 @@ namespace Bee.OAuth2
         /// </summary>
         public IOAuthProvider Provider
         {
-            get { return _Provider; }
+            get { return _provider; }
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace Bee.OAuth2
         /// </summary>
         public bool UsePKCE
         {
-            get { return _UsePKCE; }
+            get { return _usePKCE; }
         }
 
         /// <summary>
