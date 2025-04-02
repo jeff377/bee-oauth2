@@ -16,16 +16,9 @@ namespace Bee.OAuth2
         /// 產生 OAuth2 授權 URL，讓使用者登入並授權應用程式。
         /// </summary>
         /// <param name="state">用於防止 CSRF 的隨機字串</param>
+        /// <param name="codeChallenge">使用 PKCE 驗證時， 需傳入 `code_challenge` 參數值。</param>
         /// <returns>OAuth2 授權 URL</returns>
-        string GetAuthorizationUrl(string state);
-
-        /// <summary>
-        /// 產生 OAuth2 授權 URL，讓使用者登入並授權應用程式。
-        /// </summary>
-        /// <param name="state">用於防止 CSRF 的隨機字串</param>
-        /// <param name="codeChallenge">code_verifier 的 SHA-256 雜湊值。</param>
-        /// <returns>OAuth2 授權 URL</returns>
-        string GetAuthorizationUrl(string state, string codeChallenge);
+        string GetAuthorizationUrl(string state, string codeChallenge = "");
 
         /// <summary>
         /// 取得 OAuth2 驗證流程完成後的回呼網址。
@@ -36,16 +29,9 @@ namespace Bee.OAuth2
         /// 透過授權碼 (Authorization Code) 交換 Access Token。
         /// </summary>
         /// <param name="authorizationCode">回傳的授權碼 (Authorization Code)。</param>
+        /// <param name="codeVerifier">使用 PKCE 驗證時， 需傳入 `code_verifier` 參數值。</param>
         /// <returns>Access Token</returns>
-        Task<string> GetAccessTokenAsync(string authorizationCode);
-
-        /// <summary>
-        /// 透過授權碼 (Authorization Code) 交換 Access Token。
-        /// </summary>
-        /// <param name="authorizationCode">回傳的授權碼 (Authorization Code)。</param>
-        /// <param name="codeVerifier">用戶端產生的隨機字串，用來驗證授權碼請求的合法性。</param>
-        /// <returns>Access Token</returns>
-        Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier);
+        Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier = "");
 
         /// <summary>
         /// 透過 Access Token 取得用戶資訊。
@@ -63,7 +49,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// 使用 Refresh Token 取得新的 Access Token。
         /// </summary>
-        /// <param name="refreshToken">Refresh Token</param>
+        /// <param name="refreshToken">Refresh Token。</param>
         /// <returns>新的 Access Token</returns>
         Task<string> RefreshAccessTokenAsync(string refreshToken);
     }

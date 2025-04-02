@@ -35,19 +35,9 @@ namespace Bee.OAuth2
         /// 產生 LINE OAuth2 授權 URL，讓使用者登入並授權應用程式。
         /// </summary>
         /// <param name="state">用於防止 CSRF 的隨機字串</param>
-        /// <returns>LINE OAuth2 授權 URL</returns>
-        public string GetAuthorizationUrl(string state)
-        {
-            return GetAuthorizationUrl(state, string.Empty);
-        }
-
-        /// <summary>
-        /// 產生 LINE OAuth2 授權 URL，讓使用者登入並授權應用程式。
-        /// </summary>
-        /// <param name="state">用於防止 CSRF 的隨機字串</param>
-        /// <param name="codeChallenge">code_verifier 的 SHA-256 雜湊值。</param>
+        /// <param name="codeChallenge">使用 PKCE 驗證時， 需傳入 `code_challenge` 參數值。</param>
         /// <returns>OAuth2 授權 URL</returns>
-        public string GetAuthorizationUrl(string state, string codeChallenge)
+        public string GetAuthorizationUrl(string state, string codeChallenge = "")
         {
             var scope = string.Join(" ", _Options.Scopes);
             if (StrFunc.IsNotEmpty(codeChallenge))
@@ -83,20 +73,10 @@ namespace Bee.OAuth2
         /// <summary>
         /// 透過授權碼 (Authorization Code) 交換 Access Token。
         /// </summary>
-        /// <param name="authorizationCode">LINE 回傳的授權碼</param>
+        /// <param name="authorizationCode">回傳的授權碼 (Authorization Code)。</param>
+        /// <param name="codeVerifier">使用 PKCE 驗證時， 需傳入 `code_verifier` 參數值。</param>
         /// <returns>Access Token</returns>
-        public async Task<string> GetAccessTokenAsync(string authorizationCode)
-        {
-            return await GetAccessTokenAsync(authorizationCode, string.Empty);
-        }
-
-        /// <summary>
-        /// 透過授權碼 (Authorization Code) 交換 Access Token。
-        /// </summary>
-        /// <param name="authorizationCode">LINE 回傳的授權碼</param>
-        /// <param name="codeVerifier">用戶端產生的隨機字串，用來驗證授權碼請求的合法性。</param>
-        /// <returns>Access Token</returns>
-        public async Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier)
+        public async Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier = "")
         {
             FormUrlEncodedContent requestBody;
 
