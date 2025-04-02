@@ -1,0 +1,23 @@
+{
+  "GoogleOAuth": {
+    "ClientId": "google-client-id",
+    "ClientSecret": "google-client-secret",
+    "RedirectUri": "http://localhost:5000/callback",
+    "UsePKCE": true
+  },
+  "FacebookOAuth": {
+    "ClientId": "facebook-client-id",
+    "ClientSecret": "facebook-client-secret",
+    "RedirectUri": "http://localhost:5000/callback"
+  },
+  "LineOAuth": {
+    "ClientId": "line-client-id",
+    "ClientSecret": "line-client-secret",
+    "RedirectUri": "http://localhost:5000/callback"
+  },
+  "AzureOAuth": {
+    "ClientId": "azure-client-id",
+    "ClientSecret": "azure-client-secret",
+    "RedirectUri": "http://localhost:5000/callback"
+  }
+}
