@@ -15,7 +15,7 @@ namespace OAuthDesktop
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string filePath =  "OAuthConfig.json";
+            string filePath = @"OAuthConfig.json";
             _config = LoadOAuthConfig(filePath);
         }
 
@@ -65,6 +65,25 @@ namespace OAuthDesktop
             this.Login(options);
         }
 
+        private void btnFacebook_Click(object sender, EventArgs e)
+        {
+            var options = _config?.FacebookOAuth;
+            if (options == null) { return; }
+            this.Login(options);
+        }
 
+        private void btnLine_Click(object sender, EventArgs e)
+        {
+            var options = _config?.LineOAuth;
+            if (options == null) { return; }
+            this.Login(options);
+        }
+
+        private void btnAzure_Click(object sender, EventArgs e)
+        {
+            var options = _config?.AzureOAuth;
+            if (options == null) { return; }
+            this.Login(options);
+        }
     }
 }
