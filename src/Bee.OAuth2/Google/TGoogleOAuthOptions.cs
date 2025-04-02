@@ -10,10 +10,10 @@
         /// </summary>
         public TGoogleOAuthOptions()
         {
-            this.Scopes = new[] { "openid", "email", "profile" };
-            this.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/auth";
-            this.TokenEndpoint = "https://oauth2.googleapis.com/token";
-            this.UserInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
+            Scopes = new[] { "openid", "email", "profile" };
+            AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/auth";
+            TokenEndpoint = "https://oauth2.googleapis.com/token";
+            UserInfoEndpoint = "https://www.googleapis.com/oauth2/v3/userinfo";
         }
     }
 

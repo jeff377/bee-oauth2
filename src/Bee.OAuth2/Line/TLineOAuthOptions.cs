@@ -10,10 +10,10 @@
         /// </summary>
         public TLineOAuthOptions()
         {
-            this.Scopes = new[] { "profile", "openid", "email" };
-            this.AuthorizationEndpoint = "https://access.line.me/oauth2/v2.1/authorize";
-            this.TokenEndpoint = "https://api.line.me/oauth2/v2.1/token";
-            this.UserInfoEndpoint = "https://api.line.me/v2/profile";
+            Scopes = new[] { "profile", "openid", "email" };
+            AuthorizationEndpoint = "https://access.line.me/oauth2/v2.1/authorize";
+            TokenEndpoint = "https://api.line.me/oauth2/v2.1/token";
+            UserInfoEndpoint = "https://api.line.me/v2/profile";
         }
     }
 
