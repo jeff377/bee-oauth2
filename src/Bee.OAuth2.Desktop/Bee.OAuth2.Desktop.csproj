@@ -5,7 +5,28 @@
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Version>1.0.4</Version>
+		<Authors>Bee.NET</Authors>
+		<Company>Bee.NET</Company>
+		<Product>Bee.NET</Product>
+		<Copyright>© Bee.NET. All rights reserved.</Copyright>
+		<Description>Bee.OAuth2.Desktop is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports Google, Facebook, LINE, and Azure authentication with an easy-to-use UI component.</Description>
+		<PackageIcon>bee.png</PackageIcon>
+		<PackageTags>OAuth2 WinForms</PackageTags>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/jeff377/bee-oauth2</RepositoryUrl>
 	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Include="..\..\bee.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3124.44" />
@@ -13,6 +34,13 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Bee.OAuth2\Bee.OAuth2.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="README.md">
+	    <PackagePath>\</PackagePath>
+	    <Pack>True</Pack>
+	  </None>
 	</ItemGroup>
 
 	<PropertyGroup>
