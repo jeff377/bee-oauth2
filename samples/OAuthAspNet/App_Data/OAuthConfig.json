@@ -20,7 +20,6 @@
   "AzureOAuth": {
     "ClientId": "azure-client-id",
     "ClientSecret": "azure-client-secret",
-    "RedirectUri": "https://localhost:44348/oauth2callback.aspx",
-    "UsePKCE": true
+    "RedirectUri": "https://localhost:44348/oauth2callback.aspx"
   }
 }
