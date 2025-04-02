@@ -122,9 +122,7 @@ namespace Bee.OAuth2
         /// <returns>用戶資訊 JSON 字串</returns>
         public async Task<string> GetUserInfoAsync(string accessToken)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{_Options.UserInfoEndpoint}?fields=id,name,email,picture&access_token={accessToken}");
-
-            try
+            using (var request = new HttpRequestMessage(HttpMethod.Get, $"{_Options.UserInfoEndpoint}?fields=id,name,email,picture&access_token={accessToken}"))
             {
                 var response = await _HttpClient.SendAsync(request).ConfigureAwait(false);
                 if (!response.IsSuccessStatusCode)
@@ -132,10 +130,6 @@ namespace Bee.OAuth2
                     throw new Exception("Failed to retrieve user information.");
                 }
                 return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            }
-            finally
-            {
-                request.Dispose();
             }
         }
 
