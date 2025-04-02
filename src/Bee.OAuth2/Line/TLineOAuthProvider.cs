@@ -65,7 +65,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// 取得 OAuth2 驗證流程完成後的回呼網址。
         /// </summary>
-        public string GetRedirectUri()
+        public string GetRedirectUrl()
         {
             return _Options.RedirectUri;
         }

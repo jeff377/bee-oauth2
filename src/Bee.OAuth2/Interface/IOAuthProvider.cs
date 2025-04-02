@@ -23,7 +23,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// 取得 OAuth2 驗證流程完成後的回呼網址。
         /// </summary>
-        string GetRedirectUri();
+        string GetRedirectUrl();
 
         /// <summary>
         /// 透過授權碼 (Authorization Code) 交換 Access Token。

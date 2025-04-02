@@ -37,7 +37,7 @@ namespace Bee.OAuth2.WinForms
         /// <summary>
         /// OAuth2 驗證流程完成後的回呼網址。
         /// </summary>
-        public string RedirectUri { get; private set; }
+        public string RedirectUrl { get; private set; }
 
         /// <summary>
         /// OAuth2 授權碼。
@@ -54,7 +54,7 @@ namespace Bee.OAuth2.WinForms
         public string ShowForm(TOAuthClient client, string caption, int width, int height)
         {
             OAuthClient = client;
-            RedirectUri = client.Provider.GetRedirectUri();
+            RedirectUrl = client.Provider.GetRedirectUrl();
             Text = caption;
             Width = width;
             Height = height;
@@ -83,7 +83,7 @@ namespace Bee.OAuth2.WinForms
         /// </summary>
         private void WebView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
         {
-            if (e.Uri.StartsWith(RedirectUri))
+            if (e.Uri.StartsWith(RedirectUrl))
             {
                 var uri = new Uri(e.Uri);
                 var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
