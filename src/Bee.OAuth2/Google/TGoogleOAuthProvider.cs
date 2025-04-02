@@ -13,23 +13,26 @@ namespace Bee.OAuth2
     /// </summary>
     public class TGoogleOAuthProvider : IOAuthProvider
     {
-        private readonly TGoogleOAuthOptions _Options;
-        private readonly HttpClient _HttpClient;
+        private readonly HttpClient _HttpClient = new HttpClient();
 
         /// <summary>
         /// 建構函式。
         /// </summary>
-        /// <param name="options">OAuth2 設定選項</param>
+        /// <param name="options">OAuth2 設定選項。</param>
         public TGoogleOAuthProvider(TGoogleOAuthOptions options)
         {
-            _Options = options ?? throw new ArgumentNullException(nameof(options));
-            _HttpClient = new HttpClient();
+            Options = options ?? throw new ArgumentNullException(nameof(options));
         }
 
         /// <summary>
         /// OAuth2 驗證服務提供者名稱。
         /// </summary>
         public string ProviderName { get; } = "Google";
+
+        /// <summary>
+        /// OAuth2 設定選項。
+        /// </summary>
+        public TGoogleOAuthOptions Options { get; private set; }
 
         /// <summary>
         /// 產生 Google OAuth2 授權 URL，讓使用者登入並授權應用程式。
@@ -39,13 +42,12 @@ namespace Bee.OAuth2
         /// <returns>OAuth2 授權 URL</returns>
         public string GetAuthorizationUrl(string state, string codeChallenge = "")
         {
-            var scope = string.Join(" ", _Options.Scopes);
-
+            string scope = string.Join(" ", Options.Scopes);
             if (StrFunc.IsNotEmpty(codeChallenge))
             {
-                return $"{_Options.AuthorizationEndpoint}?" +
-                   $"client_id={_Options.ClientId}&" +
-                   $"redirect_uri={Uri.EscapeDataString(_Options.RedirectUri)}&" +
+                return $"{Options.AuthorizationEndpoint}?" +
+                   $"client_id={Options.ClientId}&" +
+                   $"redirect_uri={Uri.EscapeDataString(Options.RedirectUri)}&" +
                    $"response_type=code&" +
                    $"scope={Uri.EscapeDataString(scope)}&" +
                    $"state={Uri.EscapeDataString(state)}&" +
@@ -54,9 +56,9 @@ namespace Bee.OAuth2
             }
             else
             {
-                return $"{_Options.AuthorizationEndpoint}?" +
-                   $"client_id={_Options.ClientId}&" +
-                   $"redirect_uri={Uri.EscapeDataString(_Options.RedirectUri)}&" +
+                return $"{Options.AuthorizationEndpoint}?" +
+                   $"client_id={Options.ClientId}&" +
+                   $"redirect_uri={Uri.EscapeDataString(Options.RedirectUri)}&" +
                    $"response_type=code&" +
                    $"scope={Uri.EscapeDataString(scope)}&" +
                    $"state={Uri.EscapeDataString(state)}";
@@ -68,7 +70,7 @@ namespace Bee.OAuth2
         /// </summary>
         public string GetRedirectUrl()
         {
-            return _Options.RedirectUri;
+            return Options.RedirectUri;
         }
 
         /// <summary>
@@ -85,9 +87,9 @@ namespace Bee.OAuth2
             {
                 requestBody = new FormUrlEncodedContent(new[]
                 {
-                new KeyValuePair<string, string>("client_id", _Options.ClientId),
-                new KeyValuePair<string, string>("client_secret", _Options.ClientSecret),
-                new KeyValuePair<string, string>("redirect_uri", _Options.RedirectUri),
+                new KeyValuePair<string, string>("client_id", Options.ClientId),
+                new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
+                new KeyValuePair<string, string>("redirect_uri", Options.RedirectUri),
                 new KeyValuePair<string, string>("code", authorizationCode),
                 new KeyValuePair<string, string>("grant_type", "authorization_code"),
                 new KeyValuePair<string, string>("code_verifier", codeVerifier) // 傳遞 code_verifier 進行驗證
@@ -97,15 +99,15 @@ namespace Bee.OAuth2
             {
                 requestBody = new FormUrlEncodedContent(new[]
                 {
-                new KeyValuePair<string, string>("client_id", _Options.ClientId),
-                new KeyValuePair<string, string>("client_secret", _Options.ClientSecret),
-                new KeyValuePair<string, string>("redirect_uri", _Options.RedirectUri),
+                new KeyValuePair<string, string>("client_id", Options.ClientId),
+                new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
+                new KeyValuePair<string, string>("redirect_uri", Options.RedirectUri),
                 new KeyValuePair<string, string>("code", authorizationCode),
                 new KeyValuePair<string, string>("grant_type", "authorization_code")
                 });
             }
 
-            var response = await _HttpClient.PostAsync(_Options.TokenEndpoint, requestBody).ConfigureAwait(false);
+            var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false);
             var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             if (!response.IsSuccessStatusCode)
@@ -124,7 +126,7 @@ namespace Bee.OAuth2
         /// <returns>用戶資訊 JSON 字串</returns>
         public async Task<string> GetUserInfoAsync(string accessToken)
         {
-            using (var request = new HttpRequestMessage(HttpMethod.Get, _Options.UserInfoEndpoint))
+            using (var request = new HttpRequestMessage(HttpMethod.Get, Options.UserInfoEndpoint))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
@@ -144,7 +146,7 @@ namespace Bee.OAuth2
         public TUserInfo ParseUserJson(string json)
         {
             if (string.IsNullOrEmpty(json))
-                throw new ArgumentNullException(nameof(json), "JSON 字串不可為空");
+                throw new ArgumentNullException(nameof(json), "JSON string cannot be null or empty.");
 
             var jObject = JObject.Parse(json);
 
@@ -166,13 +168,13 @@ namespace Bee.OAuth2
         {
             var requestBody = new FormUrlEncodedContent(new[]
             {
-                new KeyValuePair<string, string>("client_id", _Options.ClientId),
-                new KeyValuePair<string, string>("client_secret", _Options.ClientSecret),
+                new KeyValuePair<string, string>("client_id", Options.ClientId),
+                new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
                 new KeyValuePair<string, string>("refresh_token", refreshToken),
                 new KeyValuePair<string, string>("grant_type", "refresh_token")
             });
 
-            var response = await _HttpClient.PostAsync(_Options.TokenEndpoint, requestBody).ConfigureAwait(false);
+            var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception("Failed to refresh access token.");
