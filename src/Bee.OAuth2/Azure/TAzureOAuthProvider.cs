@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using Bee.Base;
+using Newtonsoft.Json.Linq;
 
 namespace Bee.OAuth2
 {
@@ -32,7 +33,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// OAuth2 設定選項。
         /// </summary>
-        public TAzureOAuthOptions Options { get; private set; } 
+        public TAzureOAuthOptions Options { get; private set; }
 
         /// <summary>
         /// 產生 Azure OAuth2 授權 URL，讓使用者登入並授權應用程式。
@@ -42,28 +43,25 @@ namespace Bee.OAuth2
         /// <returns>OAuth2 授權 URL</returns>
         public string GetAuthorizationUrl(string state, string codeChallenge = "")
         {
-            string scope = string.Join(" ", Options.Scopes);
+            var queryParams = new Dictionary<string, string>
+            {
+                { "client_id", Options.ClientId },
+                { "redirect_uri", Options.RedirectUri },
+                { "response_type", "code" },
+                { "scope", string.Join(" ", Options.Scopes) },
+                { "state", state },
+                { "response_mode", "query" } // Azure 建議的 response_mode，確保回應方式為 QueryString
+            };
+
             if (StrFunc.IsNotEmpty(codeChallenge))
             {
-                return $"{Options.AuthorizationEndpoint}?" +
-                   $"client_id={Options.ClientId}&" +
-                   $"redirect_uri={Uri.EscapeDataString(Options.RedirectUri)}&" +
-                   $"response_type=code&" +
-                   $"scope={Uri.EscapeDataString(scope)}&" +
-                   $"state={Uri.EscapeDataString(state)}&" +
-                   $"code_challenge={Uri.EscapeDataString(codeChallenge)}&" +
-                   $"code_challenge_method=S256"; // 必須指定 S256 方法
+                queryParams["code_challenge"] = codeChallenge;
+                queryParams["code_challenge_method"] = "S256"; // 必須指定 S256 方法
             }
-            else
-            {
-                return $"{Options.AuthorizationEndpoint}?" +
-                       $"client_id={Options.ClientId}&" +
-                       $"redirect_uri={Uri.EscapeDataString(Options.RedirectUri)}&" +
-                       $"response_type=code&" +
-                       $"scope={Uri.EscapeDataString(scope)}&" +
-                       $"state={Uri.EscapeDataString(state)}&" +
-                       $"response_mode=query";
-            }
+
+            // 使用 `HttpUtility.ParseQueryString` 或 `string.Join` 來組合 URL 參數，確保正確編碼
+            var queryString = string.Join("&", queryParams.Select(kvp => $"{kvp.Key}={Uri.EscapeDataString(kvp.Value)}"));
+            return $"{Options.AuthorizationEndpoint}?{queryString}";
         }
 
         /// <summary>
@@ -78,46 +76,46 @@ namespace Bee.OAuth2
         /// 透過授權碼 (Authorization Code) 交換 Access Token。
         /// </summary>
         /// <param name="authorizationCode">回傳的授權碼 (Authorization Code)。</param>
-        /// <param name="codeVerifier">使用 PKCE 驗證時， 需傳入 `code_verifier` 參數值。</param>
+        /// <param name="codeVerifier">使用 PKCE 驗證時，需傳入 `code_verifier` 參數值。</param>
         /// <returns>Access Token</returns>
         public async Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier = "")
         {
-            FormUrlEncodedContent requestBody;
+            // 使用 Dictionary 簡化參數組合
+            var requestParams = new Dictionary<string, string>
+            {
+                { "client_id", Options.ClientId },
+                { "redirect_uri", Options.RedirectUri },
+                { "code", authorizationCode },
+                { "grant_type", "authorization_code" }
+            };
 
             if (StrFunc.IsNotEmpty(codeVerifier))
             {
-                requestBody = new FormUrlEncodedContent(new[]
-                {
-                new KeyValuePair<string, string>("client_id", Options.ClientId),
-                //new KeyValuePair<string, string>("client_secret", _Options.ClientSecret),
-                new KeyValuePair<string, string>("redirect_uri", Options.RedirectUri),
-                new KeyValuePair<string, string>("code", authorizationCode),
-                new KeyValuePair<string, string>("grant_type", "authorization_code"),
-                new KeyValuePair<string, string>("code_verifier", codeVerifier) // 傳遞 code_verifier 進行驗證
-                });
+                requestParams["code_verifier"] = codeVerifier;
             }
             else
             {
-                requestBody = new FormUrlEncodedContent(new[]
-                {
-                new KeyValuePair<string, string>("client_id", Options.ClientId),
-                new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
-                new KeyValuePair<string, string>("redirect_uri", Options.RedirectUri),
-                new KeyValuePair<string, string>("code", authorizationCode),
-                new KeyValuePair<string, string>("grant_type", "authorization_code"),
-                });
+                requestParams["client_secret"] = Options.ClientSecret;
             }
 
-            var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false);
-            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
-            if (!response.IsSuccessStatusCode)
+            using (var requestBody = new FormUrlEncodedContent(requestParams))
             {
-                throw new Exception($"Failed to obtain access token. Status: {response.StatusCode}, Response: {responseContent}");
-            }
+                var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false);
+                var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-            var tokenData = JObject.Parse(responseContent);
-            return tokenData["access_token"]?.ToString() ?? throw new Exception("Access token not found in response.");
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new HttpRequestException($"Failed to obtain access token. Status: {response.StatusCode}, Response: {responseContent}");
+                }
+
+                if (string.IsNullOrWhiteSpace(responseContent))
+                {
+                    throw new Exception("Received empty response from token endpoint.");
+                }
+
+                var tokenData = JObject.Parse(responseContent);
+                return tokenData["access_token"]?.ToString() ?? throw new Exception("Access token not found in response.");
+            }
         }
 
         /// <summary>
