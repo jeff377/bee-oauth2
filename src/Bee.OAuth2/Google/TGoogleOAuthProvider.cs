@@ -114,7 +114,6 @@ namespace Bee.OAuth2
             }
         }
 
-
         /// <summary>
         /// 透過 Access Token 取得用戶資訊。
         /// </summary>
