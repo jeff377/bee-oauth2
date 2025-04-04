@@ -129,12 +129,22 @@ namespace Bee.OAuth2
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                var response = await _HttpClient.SendAsync(request).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
+                using (var response = await _HttpClient.SendAsync(request).ConfigureAwait(false))
                 {
-                    throw new Exception("Failed to retrieve user information.");
+                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException($"Failed to retrieve user information. Status: {response.StatusCode}, Response: {responseContent}");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(responseContent))
+                    {
+                        throw new Exception("Received empty response from user info endpoint.");
+                    }
+
+                    return responseContent;
                 }
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
 

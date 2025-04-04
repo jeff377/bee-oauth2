@@ -119,18 +119,30 @@ namespace Bee.OAuth2
         /// </summary>
         /// <param name="accessToken">Access Token</param>
         /// <returns>用戶資訊 JSON 字串</returns>
+        /// <exception cref="ArgumentNullException">當 `accessToken` 為空時拋出</exception>
+        /// <exception cref="HttpRequestException">當請求失敗時拋出</exception>
         public async Task<string> GetUserInfoAsync(string accessToken)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, Options.UserInfoEndpoint))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                var response = await _HttpClient.SendAsync(request).ConfigureAwait(false);
-                if (!response.IsSuccessStatusCode)
+                using (var response = await _HttpClient.SendAsync(request).ConfigureAwait(false))
                 {
-                    throw new Exception("Failed to retrieve user information.");
+                    var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        throw new HttpRequestException($"Failed to retrieve user information. Status: {response.StatusCode}, Response: {responseContent}");
+                    }
+
+                    if (string.IsNullOrWhiteSpace(responseContent))
+                    {
+                        throw new Exception("Received empty response from user info endpoint.");
+                    }
+
+                    return responseContent;
                 }
-                return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             }
         }
 
