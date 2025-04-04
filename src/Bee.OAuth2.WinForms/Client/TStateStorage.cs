@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Bee.OAuth2.WinForms
+﻿namespace Bee.OAuth2.WinForms
 {
     /// <summary>
     /// 提供 WInForms 程式的 OAuth2 驗證流程中的狀態儲存機制。
