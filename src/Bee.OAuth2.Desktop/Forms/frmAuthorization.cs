@@ -1,5 +1,4 @@
-﻿
-using Microsoft.Web.WebView2.Core;
+﻿using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.WinForms;
 
 namespace Bee.OAuth2.Desktop

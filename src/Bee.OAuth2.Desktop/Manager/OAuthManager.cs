@@ -50,7 +50,7 @@
             if (client == null)
                 throw new InvalidOperationException($"OAuth client not found: {clientName}");
 
-            return client.Login("OAuth2 登入", 800, 600);  
+            return client.Login();  
         }
 
     }

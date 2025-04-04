@@ -15,10 +15,10 @@ namespace OAuthDesktop
         {
             string filePath = @"OAuthConfig.json";
             var config = LoadOAuthConfig(filePath);
-            RegisterIfExists("Google", config?.GoogleOAuth);
-            RegisterIfExists("Facebook", config?.FacebookOAuth);
-            RegisterIfExists("Line", config?.LineOAuth);
-            RegisterIfExists("Azure", config?.AzureOAuth);
+            RegisterIfExists("Google", 600, 700, config?.GoogleOAuth);
+            RegisterIfExists("Facebook", 900, 500, config?.FacebookOAuth);
+            RegisterIfExists("Line", 600, 800, config?.LineOAuth);
+            RegisterIfExists("Azure", 800, 600, config?.AzureOAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)
@@ -30,11 +30,17 @@ namespace OAuthDesktop
             return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
         }
 
-        private void RegisterIfExists(string name, TOAuthOptions? options)
+        private void RegisterIfExists(string name, int width, int height, TOAuthOptions? options)
         {
             if (options != null)
             {
-                OAuthManager.RegisterClient(name, new TOAuthClient(options));
+                var client = new TOAuthClient(options)
+                {
+                    Caption = $"{name} Login",
+                    Width = width,
+                    Height = height
+                };
+                OAuthManager.RegisterClient(name, client);
             }
         }
 

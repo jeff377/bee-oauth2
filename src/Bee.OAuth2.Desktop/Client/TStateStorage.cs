@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Bee.OAuth2.Desktop
+﻿namespace Bee.OAuth2.Desktop
 {
     /// <summary>
     /// 提供 WInForms 程式的 OAuth2 驗證流程中的狀態儲存機制。
