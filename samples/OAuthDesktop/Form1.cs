@@ -6,8 +6,6 @@ namespace OAuthDesktop
 {
     public partial class Form1 : Form
     {
-        private OAuthConfig? _config = null;
-
         public Form1()
         {
             InitializeComponent();
@@ -16,7 +14,11 @@ namespace OAuthDesktop
         private void Form1_Load(object sender, EventArgs e)
         {
             string filePath = @"OAuthConfig.json";
-            _config = LoadOAuthConfig(filePath);
+            var config = LoadOAuthConfig(filePath);
+            RegisterIfExists("Google", config?.GoogleOAuth);
+            RegisterIfExists("Facebook", config?.FacebookOAuth);
+            RegisterIfExists("Line", config?.LineOAuth);
+            RegisterIfExists("Azure", config?.AzureOAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)
@@ -28,29 +30,35 @@ namespace OAuthDesktop
             return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
         }
 
-        /// <summary>
-        /// 執行登入。
-        /// </summary>
-        /// <param name="options">OAuth2 設定選項。</param>
-        private async void Login(TOAuthOptions options)
+        private void RegisterIfExists(string name, TOAuthOptions? options)
         {
-            var client = new TOAuthClient(options);
-            var result = await client.Login("OAuth2 登入", 800, 600);  // 開啟登入界面，用戶執行登入後，回傳用戶身份的 JSON 資料
-            ShowUserInfo(result.ProviderName, result.UserInfo);
+            if (options != null)
+            {
+                OAuthManager.RegisterClient(name, new TOAuthClient(options));
+            }
         }
 
         /// <summary>
-        /// 顯示用戶資訊。
+        /// 顯示 OAuth2 整合認證回傳結果。
         /// </summary>
-        private void ShowUserInfo(string providerName, TUserInfo userInfo)
+        /// <param name="result">授權碼取得相關資訊的回傳結果。</param>
+        private void ShowResult(TAuthorizationResult result)
         {
+            if (result.Exception != null)
+            {
+                edtUserInfo.Text = result.Exception.Message;
+                return;
+            }
+
+            var userInfo = result.UserInfo;
             if (userInfo == null)
             {
                 edtUserInfo.Text = string.Empty;
                 return;
             }
+
             var json = JsonConvert.SerializeObject(JsonConvert.DeserializeObject(userInfo.RawJson), Formatting.Indented);
-            var value = $"ProviderName : {providerName}\r\n" +
+            var value = $"ProviderName : {result.ProviderName}\r\n" +
                                 $"UserID : {userInfo.UserId}\r\n" +
                                 $"UserName : {userInfo.UserName}\r\n" +
                                 $"Email : {userInfo.Email}\r\n" +
@@ -58,32 +66,34 @@ namespace OAuthDesktop
             edtUserInfo.Text = value;
         }
 
+        /// <summary>
+        /// 執行登入。
+        /// </summary>
+        /// <param name="clientName">用戶端名稱。</param>
+        private async void Login(string clientName)
+        {
+            var result = await OAuthManager.Login(clientName);
+            ShowResult(result);
+        }
+
         private void btnGoogle_Click(object sender, EventArgs e)
         {
-            var options = _config?.GoogleOAuth;
-            if (options == null) { return; }
-            this.Login(options);
+            Login("Google");
         }
 
         private void btnFacebook_Click(object sender, EventArgs e)
         {
-            var options = _config?.FacebookOAuth;
-            if (options == null) { return; }
-            this.Login(options);
+            Login("Facebook");
         }
 
         private void btnLine_Click(object sender, EventArgs e)
         {
-            var options = _config?.LineOAuth;
-            if (options == null) { return; }
-            this.Login(options);
+            Login("Line");
         }
 
         private void btnAzure_Click(object sender, EventArgs e)
         {
-            var options = _config?.AzureOAuth;
-            if (options == null) { return; }
-            this.Login(options);
+            Login("Azure");
         }
     }
 }
