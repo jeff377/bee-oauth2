@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net48</TargetFramework>
-		<Version>1.0.6</Version>
+		<Version>1.0.7</Version>
 		<Authors>Bee.NET</Authors>
 		<Company>Bee.NET</Company>
 		<Product>Bee.NET</Product>

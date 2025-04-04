@@ -27,21 +27,25 @@ using Bee.OAuth2.Desktop;
 
 private async void GoogleOAuth2()
 {
-    var options = new TGoogleOAuthOptions()
+     var options = new TGoogleOAuthOptions()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "http://localhost:5000/callback",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options);
-
-    // Open the login interface with a custom caption, width, and height.
-    var result = await client.Login("Google Login", 600, 800);
+    var client = new TOAuthClient(options)
+    {
+        Caption = "Google Login",
+        Width = 600,
+        Height = 800
+    };
+    // Open the login interface. After the user logs in, return user information.
+    var result = await client.Login();
     var userinfo = $"UserID : {result.UserInfo.UserId}\r\n" +
-                   $"UserName : {result.UserInfo.UserName}\r\n" +
-                   $"Email : {result.UserInfo.Email}\r\n" +
-                   $"RawJson : \r\n{result.UserInfo.RawJson}";
+            $"UserName : {result.UserInfo.UserName}\r\n" +
+            $"Email : {result.UserInfo.Email}\r\n" +
+            $"RawJson : \r\n{result.UserInfo.RawJson}";
 }
 ```
 
@@ -87,9 +91,14 @@ private async void GoogleOAuth2()
         RedirectUri = "http://localhost:5000/callback",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options);
-    // 開啟登入界面，設定標題、視窗寬度與高度，使用者登入後回傳用戶資料
-    var result = await client.Login("Google 登入", 600, 800);
+    var client = new TOAuthClient(options)
+    {
+        Caption = "Google Login",
+        Width = 600,
+        Height = 800
+    };
+    // 開啟登入界面，用戶執行登入後，回傳用戶資料
+    var result = await client.Login();
     var userinfo = $"UserID : {result.UserInfo.UserId}\r\n" +
             $"UserName : {result.UserInfo.UserName}\r\n" +
             $"Email : {result.UserInfo.Email}\r\n" +
