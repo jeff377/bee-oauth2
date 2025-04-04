@@ -104,11 +104,6 @@ namespace Bee.OAuth2
                     throw new HttpRequestException($"Failed to obtain access token. Status: {response.StatusCode}, Response: {responseContent}");
                 }
 
-                if (string.IsNullOrWhiteSpace(responseContent))
-                {
-                    throw new Exception("Received empty response from token endpoint.");
-                }
-
                 var tokenData = JObject.Parse(responseContent);
                 return tokenData["access_token"]?.ToString() ?? throw new Exception("Access token not found in response.");
             }
@@ -132,11 +127,6 @@ namespace Bee.OAuth2
                     if (!response.IsSuccessStatusCode)
                     {
                         throw new HttpRequestException($"Failed to retrieve user information. Status: {response.StatusCode}, Response: {responseContent}");
-                    }
-
-                    if (string.IsNullOrWhiteSpace(responseContent))
-                    {
-                        throw new Exception("Received empty response from user info endpoint.");
                     }
 
                     return responseContent;
