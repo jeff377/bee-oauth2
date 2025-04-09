@@ -25,6 +25,8 @@ namespace Bee.OAuth2
         /// <param name="options">OAuth2 設定選項。</param>
         public TOAuth2Provider(TOAuth2Options options)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
             Options = options;
         }
 
@@ -41,6 +43,8 @@ namespace Bee.OAuth2
         /// <summary>
         /// 取得 OAuth2 授權 URL 的參數集合。
         /// </summary>
+        /// <param name="state">用於防止 CSRF 的隨機字串</param>
+        /// <param name="codeChallenge">使用 PKCE 驗證時， 需傳入 `code_challenge` 參數值。</param>
         protected virtual Dictionary<string, string> GetAuthorizationUrlParams(string state, string codeChallenge = "")
         {
             var queryParams = new Dictionary<string, string>
