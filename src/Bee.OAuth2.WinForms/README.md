@@ -27,14 +27,14 @@ using Bee.OAuth2.WinForms;
 
 private async void GoogleOAuth2()
 {
-     var options = new TGoogleOAuthOptions()
+     var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "http://localhost:5000/callback",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options)
+    var client = new TOAuth2Client(options)
     {
         Caption = "Google Login",
         Width = 600,
@@ -84,14 +84,14 @@ using Bee.OAuth2.WinForms;
 
 private async void GoogleOAuth2()
 {
-     var options = new TGoogleOAuthOptions()
+     var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "http://localhost:5000/callback",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options)
+    var client = new TOAuth2Client(options)
     {
         Caption = "Google Login",
         Width = 600,

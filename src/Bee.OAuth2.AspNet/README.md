@@ -27,28 +27,28 @@ using Bee.OAuth2.Providers;
 
 protected void Application_Start()
 {
-    var options = new TGoogleOAuthOptions()
+    var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options);
-    OAuthManager.RegisterClient("Google", client);
+    var client = new TOAuth2Client(options);
+    OAuth2Manager.RegisterClient("Google", client);
 }
 ```
 
 ### Redirect to OAuth Authorization Page in Login Page
 
 ```csharp
-OAuthManager.RedirectToAuthorization("Google");
+OAuth2Manager.RedirectToAuthorization("Google");
 ```
 
 ### Validate OAuth2 Callback and Retrieve User Information
 
 ```csharp
-var result = await OAuthManager.ValidateAuthorization();
+var result = await OAuth2Manager.ValidateAuthorization();
 Response.Write(
     $"ProviderName : {result.ProviderName}<br/>" +
     $"UserID : {result.UserInfo.UserId}<br/>" +
@@ -67,24 +67,24 @@ using Bee.OAuth2.Providers;
 
 public void Configuration(IAppBuilder app)
 {
-    var options = new TGoogleOAuthOptions()
+    var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options);
-    OAuthManager.RegisterClient("Google", client);
+    var client = new TOAuth2Client(options);
+    OAuth2Manager.RegisterClient("Google", client);
 }
 ```
 
-### Redirect to OAuth Authorization Page in Controller
+### Redirect to OAuth2 Authorization Page in Controller
 
 ```csharp
 public ActionResult Login()
 {
-    return Redirect(OAuthManager.GetAuthorizationUrl("Google"));
+    return Redirect(OAuth2Manager.GetAuthorizationUrl("Google"));
 }
 ```
 
@@ -93,7 +93,7 @@ public ActionResult Login()
 ```csharp
 public async Task<ActionResult> Callback()
 {
-    var result = await OAuthManager.ValidateAuthorization();
+    var result = await OAuth2Manager.ValidateAuthorization();
     return Content($"ProviderName: {result.ProviderName}\n" +
                    $"UserID: {result.UserInfo.UserId}\n" +
                    $"UserName: {result.UserInfo.UserName}\n" +
@@ -137,28 +137,28 @@ using Bee.OAuth2.Providers;
 
 protected void Application_Start()
 {
-    var options = new TGoogleOAuthOptions()
+    var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options);
-    OAuthManager.RegisterClient("Google", client);
+    var client = new TOAuth2Client(options);
+    OAuth2Manager.RegisterClient("Google", client);
 }
 ```
 
-### 在 login 頁面轉向 OAuth 授權頁面
+### 在 login 頁面轉向 OAuth2 授權頁面
 
 ```csharp
-OAuthManager.RedirectToAuthorization("Google");
+OAuth2Manager.RedirectToAuthorization("Google");
 ```
 
 ### 在 callback 頁面驗證 OAuth2 回傳授權碼，並取得用戶資料
 
 ```csharp
-var result = await OAuthManager.ValidateAuthorization();
+var result = await OAuth2Manager.ValidateAuthorization();
 Response.Write(
     $"ProviderName : {result.ProviderName}<br/>" +
     $"UserID : {result.UserInfo.UserId}<br/>" +
@@ -177,15 +177,15 @@ using Bee.OAuth2.Providers;
 
 public void Configuration(IAppBuilder app)
 {
-    var options = new TGoogleOAuthOptions()
+    var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuthClient(options);
-    OAuthManager.RegisterClient("Google", client);
+    var client = new TOAuth2Client(options);
+    OAuth2Manager.RegisterClient("Google", client);
 }
 ```
 
@@ -194,7 +194,7 @@ public void Configuration(IAppBuilder app)
 ```csharp
 public ActionResult Login()
 {
-    return Redirect(OAuthManager.GetAuthorizationUrl("Google"));
+    return Redirect(OAuth2Manager.GetAuthorizationUrl("Google"));
 }
 ```
 
@@ -203,7 +203,7 @@ public ActionResult Login()
 ```csharp
 public async Task<ActionResult> Callback()
 {
-    var result = await OAuthManager.ValidateAuthorization();
+    var result = await OAuth2Manager.ValidateAuthorization();
     return Content($"ProviderName: {result.ProviderName}\n" +
                    $"UserID: {result.UserInfo.UserId}\n" +
                    $"UserName: {result.UserInfo.UserName}\n" +
