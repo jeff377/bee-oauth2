@@ -3,7 +3,7 @@
     /// <summary>
     /// OAuth2 設定選項，包含 Client ID、Secret、Redirect URI 及相關端點。
     /// </summary>
-    public class TOAuthOptions
+    public class TOAuth2Options
     {
         /// <summary>
         /// OAuth2 應用程式的 Client ID（用於識別應用）。

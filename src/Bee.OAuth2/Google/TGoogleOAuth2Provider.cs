@@ -1,18 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 using Bee.Base;
-using System.Linq;
+using Newtonsoft.Json.Linq;
 
 namespace Bee.OAuth2
 {
     /// <summary>
-    /// LINE OAuth2 驗證服務提供者，負責處理授權流程、交換 Access Token 及取得用戶資訊。
+    /// Google OAuth2 驗證服務提供者，負責處理授權流程、交換 Access Token 及取得用戶資訊。
     /// </summary>
-    public class TLineOAuthProvider : IOAuthProvider
+    public class TGoogleOAuth2Provider : IOAuth2Provider
     {
         private readonly HttpClient _HttpClient = new HttpClient();
 
@@ -20,7 +20,7 @@ namespace Bee.OAuth2
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TLineOAuthProvider(TLineOAuthOptions options)
+        public TGoogleOAuth2Provider(TGoogleOAuth2Options options)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
         }
@@ -28,18 +28,18 @@ namespace Bee.OAuth2
         /// <summary>
         /// OAuth2 驗證服務提供者名稱。
         /// </summary>
-        public string ProviderName { get; } = "LINE";
+        public string ProviderName { get; } = "Google";
 
         /// <summary>
         /// OAuth2 設定選項。
         /// </summary>
-        public TLineOAuthOptions Options { get; private set; }
+        public TGoogleOAuth2Options Options { get; private set; }
 
         /// <summary>
-        /// 產生 LINE OAuth2 授權 URL，讓使用者登入並授權應用程式。
+        /// 產生 Google OAuth2 授權 URL，讓使用者登入並授權應用程式。
         /// </summary>
         /// <param name="state">用於防止 CSRF 的隨機字串</param>
-        /// <param name="codeChallenge">使用 PKCE 驗證時，需傳入 `code_challenge` 參數值。</param>
+        /// <param name="codeChallenge">使用 PKCE 驗證時， 需傳入 `code_challenge` 參數值。</param>
         /// <returns>OAuth2 授權 URL</returns>
         public string GetAuthorizationUrl(string state, string codeChallenge = "")
         {
@@ -75,7 +75,7 @@ namespace Bee.OAuth2
         /// 透過授權碼 (Authorization Code) 交換 Access Token。
         /// </summary>
         /// <param name="authorizationCode">回傳的授權碼 (Authorization Code)。</param>
-        /// <param name="codeVerifier">使用 PKCE 驗證時，需傳入 `code_verifier` 參數值。</param>
+        /// <param name="codeVerifier">使用 PKCE 驗證時， 需傳入 `code_verifier` 參數值。</param>
         /// <returns>Access Token</returns>
         public async Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier = "")
         {
@@ -114,6 +114,8 @@ namespace Bee.OAuth2
         /// </summary>
         /// <param name="accessToken">Access Token</param>
         /// <returns>用戶資訊 JSON 字串</returns>
+        /// <exception cref="ArgumentNullException">當 `accessToken` 為空時拋出</exception>
+        /// <exception cref="HttpRequestException">當請求失敗時拋出</exception>
         public async Task<string> GetUserInfoAsync(string accessToken)
         {
             using (var request = new HttpRequestMessage(HttpMethod.Get, Options.UserInfoEndpoint))
@@ -147,9 +149,9 @@ namespace Bee.OAuth2
 
             return new TUserInfo
             {
-                UserId = jObject["userId"]?.ToString(),
-                UserName = jObject["displayName"]?.ToString(),
-                Email = jObject["email"]?.ToString(), // LINE API 可能不會提供 email
+                UserId = jObject["sub"]?.ToString(),
+                UserName = jObject["name"]?.ToString(),
+                Email = jObject["email"]?.ToString(),
                 RawJson = json
             };
         }
@@ -163,11 +165,11 @@ namespace Bee.OAuth2
         {
             var requestBody = new FormUrlEncodedContent(new[]
             {
-            new KeyValuePair<string, string>("client_id", Options.ClientId),
-            new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
-            new KeyValuePair<string, string>("refresh_token", refreshToken),
-            new KeyValuePair<string, string>("grant_type", "refresh_token")
-        });
+                new KeyValuePair<string, string>("client_id", Options.ClientId),
+                new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
+                new KeyValuePair<string, string>("refresh_token", refreshToken),
+                new KeyValuePair<string, string>("grant_type", "refresh_token")
+            });
 
             var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false);
             if (!response.IsSuccessStatusCode)

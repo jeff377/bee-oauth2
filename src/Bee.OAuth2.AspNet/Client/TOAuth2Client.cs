@@ -5,7 +5,7 @@ namespace Bee.OAuth2.AspNet
     /// <summary>
     /// 提供 ASP.NET 程式進行 OAuth2 整合認證的用戶端。
     /// </summary>
-    public class TOAuthClient : TBaseOAuthClient
+    public class TOAuth2Client : TBaseOAuth2Client
     {
         private TStateStorage _StateStorage = null;
 
@@ -13,7 +13,7 @@ namespace Bee.OAuth2.AspNet
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TOAuthClient(TOAuthOptions options) : base(options)
+        public TOAuth2Client(TOAuth2Options options) : base(options)
         {
         }
 

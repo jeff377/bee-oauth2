@@ -7,7 +7,7 @@ namespace OAuthAspNet
     {
         protected async void Page_Load(object sender, EventArgs e)
         {
-            var result = await OAuthManager.ValidateAuthorization();
+            var result = await OAuth2Manager.ValidateAuthorization();
             if (result.IsSuccess)
             {
                 Response.Write(

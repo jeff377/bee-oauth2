@@ -12,22 +12,22 @@ namespace OAuthAspNet
 
         protected void btnGoogle_Click(object sender, EventArgs e)
         {
-            OAuthManager.RedirectToAuthorization("Google");
+            OAuth2Manager.RedirectToAuthorization("Google");
         }
 
         protected void btnFacebook_Click(object sender, EventArgs e)
         {
-            OAuthManager.RedirectToAuthorization("Facebook");
+            OAuth2Manager.RedirectToAuthorization("Facebook");
         }
 
         protected void btnLine_Click(object sender, EventArgs e)
         {
-            OAuthManager.RedirectToAuthorization("Line");
+            OAuth2Manager.RedirectToAuthorization("Line");
         }
 
         protected void btnAzure_Click(object sender, EventArgs e)
         {
-            OAuthManager.RedirectToAuthorization("Azure");
+            OAuth2Manager.RedirectToAuthorization("Azure");
         }
     }
 }

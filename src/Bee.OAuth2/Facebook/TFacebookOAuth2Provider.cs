@@ -10,9 +10,9 @@ using Newtonsoft.Json.Linq;
 namespace Bee.OAuth2
 {
     /// <summary>
-    /// Google OAuth2 驗證服務提供者，負責處理授權流程、交換 Access Token 及取得用戶資訊。
+    /// Facebook OAuth2 驗證服務提供者，負責處理授權流程、交換 Access Token 及取得用戶資訊。
     /// </summary>
-    public class TGoogleOAuthProvider : IOAuthProvider
+    public class TFacebookOAuth2Provider : IOAuth2Provider
     {
         private readonly HttpClient _HttpClient = new HttpClient();
 
@@ -20,7 +20,7 @@ namespace Bee.OAuth2
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TGoogleOAuthProvider(TGoogleOAuthOptions options)
+        public TFacebookOAuth2Provider(TFacebookOAuth2Options options)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
         }
@@ -28,18 +28,18 @@ namespace Bee.OAuth2
         /// <summary>
         /// OAuth2 驗證服務提供者名稱。
         /// </summary>
-        public string ProviderName { get; } = "Google";
+        public string ProviderName { get; } = "Facebook";
 
         /// <summary>
         /// OAuth2 設定選項。
         /// </summary>
-        public TGoogleOAuthOptions Options { get; private set; }
+        public TFacebookOAuth2Options Options { get; private set; }
 
         /// <summary>
-        /// 產生 Google OAuth2 授權 URL，讓使用者登入並授權應用程式。
+        /// 產生 Facebook OAuth2 授權 URL，讓使用者登入並授權應用程式。
         /// </summary>
         /// <param name="state">用於防止 CSRF 的隨機字串</param>
-        /// <param name="codeChallenge">使用 PKCE 驗證時， 需傳入 `code_challenge` 參數值。</param>
+        /// <param name="codeChallenge">使用 PKCE 驗證時，需傳入 `code_challenge` 參數值。</param>
         /// <returns>OAuth2 授權 URL</returns>
         public string GetAuthorizationUrl(string state, string codeChallenge = "")
         {
@@ -48,20 +48,21 @@ namespace Bee.OAuth2
                 { "client_id", Options.ClientId },
                 { "redirect_uri", Options.RedirectUri },
                 { "response_type", "code" },
-                { "scope", string.Join(" ", Options.Scopes) },
+                { "scope", string.Join(",", Options.Scopes) }, // Facebook 的 scope 以逗號分隔
                 { "state", state }
             };
 
             if (StrFunc.IsNotEmpty(codeChallenge))
             {
                 queryParams["code_challenge"] = codeChallenge;
-                queryParams["code_challenge_method"] = "S256"; // 必須指定 S256 方法
+                queryParams["code_challenge_method"] = "S256"; // Facebook 目前支援 S256
             }
 
             // 使用 `HttpUtility.ParseQueryString` 或 `string.Join` 來組合 URL 參數，確保正確編碼
-            string queryString = string.Join("&", queryParams.Select(kvp => $"{kvp.Key}={Uri.EscapeDataString(kvp.Value)}"));
+            var queryString = string.Join("&", queryParams.Select(kvp => $"{kvp.Key}={Uri.EscapeDataString(kvp.Value)}"));
             return $"{Options.AuthorizationEndpoint}?{queryString}";
         }
+
 
         /// <summary>
         /// 取得 OAuth2 驗證流程完成後的回呼網址。
@@ -75,7 +76,7 @@ namespace Bee.OAuth2
         /// 透過授權碼 (Authorization Code) 交換 Access Token。
         /// </summary>
         /// <param name="authorizationCode">回傳的授權碼 (Authorization Code)。</param>
-        /// <param name="codeVerifier">使用 PKCE 驗證時， 需傳入 `code_verifier` 參數值。</param>
+        /// <param name="codeVerifier">使用 PKCE 驗證時，需傳入 `code_verifier` 參數值。</param>
         /// <returns>Access Token</returns>
         public async Task<string> GetAccessTokenAsync(string authorizationCode, string codeVerifier = "")
         {
@@ -114,14 +115,14 @@ namespace Bee.OAuth2
         /// </summary>
         /// <param name="accessToken">Access Token</param>
         /// <returns>用戶資訊 JSON 字串</returns>
-        /// <exception cref="ArgumentNullException">當 `accessToken` 為空時拋出</exception>
-        /// <exception cref="HttpRequestException">當請求失敗時拋出</exception>
         public async Task<string> GetUserInfoAsync(string accessToken)
         {
-            using (var request = new HttpRequestMessage(HttpMethod.Get, Options.UserInfoEndpoint))
+            var fields = "id,name,email,picture";
+            var uri = $"{Options.UserInfoEndpoint}?fields={Uri.EscapeDataString(fields)}";
+
+            using (var request = new HttpRequestMessage(HttpMethod.Get, uri))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-
                 using (var response = await _HttpClient.SendAsync(request).ConfigureAwait(false))
                 {
                     var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
@@ -149,7 +150,7 @@ namespace Bee.OAuth2
 
             return new TUserInfo
             {
-                UserId = jObject["sub"]?.ToString(),
+                UserId = jObject["id"]?.ToString(),
                 UserName = jObject["name"]?.ToString(),
                 Email = jObject["email"]?.ToString(),
                 RawJson = json
@@ -161,25 +162,9 @@ namespace Bee.OAuth2
         /// </summary>
         /// <param name="refreshToken">Refresh Token</param>
         /// <returns>新的 Access Token</returns>
-        public async Task<string> RefreshAccessTokenAsync(string refreshToken)
+        public Task<string> RefreshAccessTokenAsync(string refreshToken)
         {
-            var requestBody = new FormUrlEncodedContent(new[]
-            {
-                new KeyValuePair<string, string>("client_id", Options.ClientId),
-                new KeyValuePair<string, string>("client_secret", Options.ClientSecret),
-                new KeyValuePair<string, string>("refresh_token", refreshToken),
-                new KeyValuePair<string, string>("grant_type", "refresh_token")
-            });
-
-            var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false);
-            if (!response.IsSuccessStatusCode)
-            {
-                throw new Exception("Failed to refresh access token.");
-            }
-
-            var json = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var tokenData = JObject.Parse(json);
-            return tokenData["access_token"]?.ToString() ?? throw new Exception("Access token not found in response.");
+            throw new NotSupportedException();
         }
     }
 

@@ -12,7 +12,7 @@ namespace Bee.OAuth2
     /// <summary>
     /// Azure OAuth2 驗證服務提供者，負責處理授權流程、交換 Access Token 及取得用戶資訊。
     /// </summary>
-    public class TAzureOAuthProvider : IOAuthProvider
+    public class TAzureOAuth2Provider : IOAuth2Provider
     {
         private readonly HttpClient _HttpClient = new HttpClient();
 
@@ -20,7 +20,7 @@ namespace Bee.OAuth2
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TAzureOAuthProvider(TAzureOAuthOptions options)
+        public TAzureOAuth2Provider(TAzureOAuth2Options options)
         {
             Options = options ?? throw new ArgumentNullException(nameof(options));
         }
@@ -33,7 +33,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// OAuth2 設定選項。
         /// </summary>
-        public TAzureOAuthOptions Options { get; private set; }
+        public TAzureOAuth2Options Options { get; private set; }
 
         /// <summary>
         /// 產生 Azure OAuth2 授權 URL，讓使用者登入並授權應用程式。

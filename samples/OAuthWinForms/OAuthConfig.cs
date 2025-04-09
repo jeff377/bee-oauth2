@@ -4,9 +4,9 @@ namespace OAuthWinForms
 {
     public class OAuthConfig
     {
-        public TGoogleOAuthOptions GoogleOAuth { get; set; }
-        public TFacebookOAuthOptions FacebookOAuth { get; set; }
-        public TLineOAuthOptions LineOAuth { get; set; }
-        public TAzureOAuthOptions AzureOAuth { get; set; }
+        public TGoogleOAuth2Options GoogleOAuth { get; set; }
+        public TFacebookOAuth2Options FacebookOAuth { get; set; }
+        public TLineOAuth2Options LineOAuth { get; set; }
+        public TAzureOAuth2Options AzureOAuth { get; set; }
     }
 }

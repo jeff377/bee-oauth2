@@ -30,7 +30,7 @@ namespace Bee.OAuth2.Desktop
         /// <summary>
         /// OAuth2 整合用戶端。
         /// </summary>
-        public TOAuthClient? OAuthClient { get; private set; }
+        public TOAuth2Client? OAuthClient { get; private set; }
 
         /// <summary>
         /// OAuth2 驗證流程完成後的回呼網址。
@@ -49,7 +49,7 @@ namespace Bee.OAuth2.Desktop
         /// <param name="caption">標題文字。</param>
         /// <param name="width">視窗寬度 。</param>
         /// <param name="height">視窗高度。</param>
-        public string ShowForm(TOAuthClient client, string caption, int width, int height)
+        public string ShowForm(TOAuth2Client client, string caption, int width, int height)
         {
             OAuthClient = client;
             RedirectUrl = client.Provider.GetRedirectUrl();

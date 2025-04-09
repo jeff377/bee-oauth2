@@ -7,13 +7,13 @@ namespace Bee.OAuth2
     /// <summary>
     /// 提供 OAuth2 驗證的基本功能，適用於不同平台的擴充。
     /// </summary>
-    public abstract class TBaseOAuthClient
+    public abstract class TBaseOAuth2Client
     {
         /// <summary>
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TBaseOAuthClient(TOAuthOptions options)
+        public TBaseOAuth2Client(TOAuth2Options options)
         {
             UsePKCE = options.UsePKCE;
             Provider = CreateProvider(options);
@@ -23,18 +23,18 @@ namespace Bee.OAuth2
         /// 建立 OAuth2 驗證服務提供者。  
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        private IOAuthProvider CreateProvider(TOAuthOptions options)
+        private IOAuth2Provider CreateProvider(TOAuth2Options options)
         {
             switch (options)
             {
-                case TGoogleOAuthOptions googleOptions:
-                    return new TGoogleOAuthProvider(googleOptions);
-                case TLineOAuthOptions lineOptions:
-                    return new TLineOAuthProvider(lineOptions);
-                case TAzureOAuthOptions azureOptions:
-                    return new TAzureOAuthProvider(azureOptions);
-                case TFacebookOAuthOptions facebookOptions:
-                    return new TFacebookOAuthProvider(facebookOptions);
+                case TGoogleOAuth2Options googleOptions:
+                    return new TGoogleOAuth2Provider(googleOptions);
+                case TLineOAuth2Options lineOptions:
+                    return new TLineOAuth2Provider(lineOptions);
+                case TAzureOAuth2Options azureOptions:
+                    return new TAzureOAuth2Provider(azureOptions);
+                case TFacebookOAuth2Options facebookOptions:
+                    return new TFacebookOAuth2Provider(facebookOptions);
                 default:
                     throw new NotSupportedException("Unsupported OAuth provider.");
             }
@@ -43,7 +43,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// OAuth2 驗證服務提供者。
         /// </summary>
-        public IOAuthProvider Provider { get; private set; }
+        public IOAuth2Provider Provider { get; private set; }
 
         /// <summary>
         /// OAuth2 驗證流程中的狀態儲存機制。

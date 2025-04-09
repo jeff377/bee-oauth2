@@ -29,11 +29,11 @@ namespace OAuthAspNet
             return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
         }
 
-        private void RegisterIfExists(string name, TOAuthOptions options)
+        private void RegisterIfExists(string name, TOAuth2Options options)
         {
             if (options != null)
             {
-                OAuthManager.RegisterClient(name, new TOAuthClient(options));
+                OAuth2Manager.RegisterClient(name, new TOAuth2Client(options));
             }
         }
 

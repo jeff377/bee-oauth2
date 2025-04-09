@@ -30,17 +30,17 @@ namespace OAuthDesktop
             return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
         }
 
-        private void RegisterIfExists(string name, int width, int height, TOAuthOptions? options)
+        private void RegisterIfExists(string name, int width, int height, TOAuth2Options? options)
         {
             if (options != null)
             {
-                var client = new TOAuthClient(options)
+                var client = new TOAuth2Client(options)
                 {
                     Caption = $"{name} Login",
                     Width = width,
                     Height = height
                 };
-                OAuthManager.RegisterClient(name, client);
+                OAuth2Manager.RegisterClient(name, client);
             }
         }
 
@@ -78,7 +78,7 @@ namespace OAuthDesktop
         /// <param name="clientName">¥Î¤áºÝ¦WºÙ¡C</param>
         private async void Login(string clientName)
         {
-            var result = await OAuthManager.Login(clientName);
+            var result = await OAuth2Manager.Login(clientName);
             ShowResult(result);
         }
 

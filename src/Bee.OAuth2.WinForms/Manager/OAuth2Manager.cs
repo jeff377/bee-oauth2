@@ -1,21 +1,25 @@
-﻿namespace Bee.OAuth2.Desktop
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Bee.OAuth2.WinForms
 {
     /// <summary>
     /// 提供 WInForms 程式 OAuth2 整合認證管理者。
     /// </summary>
-    public static class OAuthManager
+    public static class OAuth2Manager
     {
         /// <summary>
         /// 存放 OAuth2 用戶端的集合。
         /// </summary>
-        private static Dictionary<string, TOAuthClient> Clients { get; } = new Dictionary<string, TOAuthClient>();
+        private static Dictionary<string, TOAuth2Client> Clients { get; } = new Dictionary<string, TOAuth2Client>();
 
         /// <summary>
         /// 註冊 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
         /// <param name="client">OAuth2 用戶端。</param>
-        public static void RegisterClient(string clientName, TOAuthClient client)
+        public static void RegisterClient(string clientName, TOAuth2Client client)
         {
             if (string.IsNullOrWhiteSpace(clientName))
                 throw new ArgumentException("Client name cannot be null or empty.", nameof(clientName));
@@ -30,7 +34,7 @@
         /// 取得已註冊的 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
-        public static TOAuthClient? GetClient(string clientName)
+        public static TOAuth2Client GetClient(string clientName)
         {
             if (Clients.TryGetValue(clientName, out var client))
             {
@@ -50,7 +54,7 @@
             if (client == null)
                 throw new InvalidOperationException($"OAuth client not found: {clientName}");
 
-            return client.Login();  
+            return client.Login();
         }
 
     }

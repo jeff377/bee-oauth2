@@ -5,7 +5,7 @@ namespace Bee.OAuth2
     /// <summary>
     /// OAuth2 驗證服務提供者介面。
     /// </summary>
-    public interface IOAuthProvider
+    public interface IOAuth2Provider
     {
         /// <summary>
         /// OAuth2 驗證服務提供者名稱。
