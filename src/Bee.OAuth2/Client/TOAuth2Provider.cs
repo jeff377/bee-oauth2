@@ -17,7 +17,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// HttpClient 實例，用於發送 HTTP 請求。
         /// </summary>
-        protected readonly HttpClient _HttpClient = new HttpClient();
+        protected readonly HttpClient _httpClient = new HttpClient();
 
         /// <summary>
         /// 建構函式。
@@ -122,7 +122,7 @@ namespace Bee.OAuth2
             var requestParams = GetAccessTokenParams(authorizationCode, codeVerifier);
 
             using (var requestBody = new FormUrlEncodedContent(requestParams))
-            using (var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false))
+            using (var response = await _httpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false))
             {
                 var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -158,7 +158,7 @@ namespace Bee.OAuth2
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
 
-                using (var response = await _HttpClient.SendAsync(request).ConfigureAwait(false))
+                using (var response = await _httpClient.SendAsync(request).ConfigureAwait(false))
                 {
                     var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
@@ -205,7 +205,7 @@ namespace Bee.OAuth2
 
             var requestBody = new FormUrlEncodedContent(parameters);
 
-            using (var response = await _HttpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false))
+            using (var response = await _httpClient.PostAsync(Options.TokenEndpoint, requestBody).ConfigureAwait(false))
             {
                 var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
