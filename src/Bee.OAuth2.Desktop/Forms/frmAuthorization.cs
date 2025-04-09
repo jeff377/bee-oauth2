@@ -30,7 +30,7 @@ namespace Bee.OAuth2.Desktop
         /// <summary>
         /// OAuth2 整合用戶端。
         /// </summary>
-        public TOAuth2Client? OAuthClient { get; private set; }
+        public TOAuth2Client? Client { get; private set; }
 
         /// <summary>
         /// OAuth2 驗證流程完成後的回呼網址。
@@ -51,7 +51,7 @@ namespace Bee.OAuth2.Desktop
         /// <param name="height">視窗高度。</param>
         public string ShowForm(TOAuth2Client client, string caption, int width, int height)
         {
-            OAuthClient = client;
+            Client = client;
             RedirectUrl = client.Provider.GetRedirectUrl();
             Text = caption;
             Width = width;
@@ -67,9 +67,9 @@ namespace Bee.OAuth2.Desktop
         /// </summary>
         private void WebView_Initialized(object? sender, CoreWebView2InitializationCompletedEventArgs e)
         {
-            if (OAuthClient != null && e.IsSuccess)
+            if (Client != null && e.IsSuccess)
             {
-                string authorizationUrl = OAuthClient.GetAuthorizationUrl(Guid.NewGuid().ToString());
+                string authorizationUrl = Client.GetAuthorizationUrl(Guid.NewGuid().ToString());
                 WebView.Source = new Uri(authorizationUrl);
                 // 監聽導航事件，處理 OAuth 回應
                 WebView.NavigationStarting += WebView_NavigationStarting;
@@ -81,7 +81,7 @@ namespace Bee.OAuth2.Desktop
         /// </summary>
         private void WebView_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
         {
-            if (OAuthClient != null && !string.IsNullOrEmpty(RedirectUrl) && e.Uri.StartsWith(RedirectUrl))
+            if (Client != null && !string.IsNullOrEmpty(RedirectUrl) && e.Uri.StartsWith(RedirectUrl))
             {
                 var uri = new Uri(e.Uri);
                 var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
@@ -92,7 +92,7 @@ namespace Bee.OAuth2.Desktop
                 {
                     AuthorizationCode = code;
                 }
-                if (!OAuthClient.ValidateState(state))
+                if (!Client.ValidateState(state))
                 {
                     throw new Exception("Validate state error");
                 }

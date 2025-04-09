@@ -32,7 +32,7 @@ namespace Bee.OAuth2.WinForms
         /// <summary>
         /// OAuth2 整合用戶端。
         /// </summary>
-        public TOAuth2Client OAuthClient { get; private set; }
+        public TOAuth2Client Client { get; private set; }
 
         /// <summary>
         /// OAuth2 驗證流程完成後的回呼網址。
@@ -53,7 +53,7 @@ namespace Bee.OAuth2.WinForms
         /// <param name="height">視窗高度。</param>
         public string ShowForm(TOAuth2Client client, string caption, int width, int height)
         {
-            OAuthClient = client;
+            Client = client;
             RedirectUrl = client.Provider.GetRedirectUrl();
             Text = caption;
             Width = width;
@@ -71,7 +71,7 @@ namespace Bee.OAuth2.WinForms
         {
             if (e.IsSuccess)
             {
-                string authorizationUrl = this.OAuthClient.GetAuthorizationUrl(Guid.NewGuid().ToString());
+                string authorizationUrl = this.Client.GetAuthorizationUrl(Guid.NewGuid().ToString());
                 WebView.Source = new Uri(authorizationUrl);
                 // 監聽導航事件，處理 OAuth 回應
                 WebView.NavigationStarting += WebView_NavigationStarting;
@@ -94,7 +94,7 @@ namespace Bee.OAuth2.WinForms
                 {
                     AuthorizationCode = code;
                 }
-                if (!OAuthClient.ValidateState(state))
+                if (!Client.ValidateState(state))
                 {
                     throw new Exception("Validate state error");
                 }
