@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Version>1.0.8</Version>
+		<Authors>Bee.NET</Authors>
+		<Company>Bee.NET</Company>
+		<Product>Bee.NET</Product>
+		<Copyright>© Bee.NET. All rights reserved.</Copyright>
+		<Description>Bee.OAuth2.AspNetCore is an OAuth2 authentication library designed for ASP.NET Core, supporting Google, Facebook, LINE, and Azure.</Description>
+		<PackageIcon>bee.png</PackageIcon>
+		<PackageTags>OAuth2 WinForms</PackageTags>
+		<PackageReleaseNotes></PackageReleaseNotes>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/jeff377/bee-oauth2</RepositoryUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\..\bee.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+	</ItemGroup>
+	
+	<ItemGroup>
+		<None Update="README.md">
+			<PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+		</None>
+	</ItemGroup>	
+
+	<ItemGroup>
+		<ProjectReference Include="..\Bee.OAuth2\Bee.OAuth2.csproj" />
+	</ItemGroup>
+
+</Project>

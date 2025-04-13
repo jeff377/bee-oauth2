@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{8DDC4786-5
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthAspNet", "samples\OAuthAspNet\OAuthAspNet.csproj", "{D7590DC2-A65F-453E-B788-56D6E3F8D8D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bee.OAuth2.AspNetCore", "src\Bee.OAuth2.AspNetCore\Bee.OAuth2.AspNetCore.csproj", "{E985FCC6-B056-4225-9B1B-F275323F6415}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{D7590DC2-A65F-453E-B788-56D6E3F8D8D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7590DC2-A65F-453E-B788-56D6E3F8D8D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7590DC2-A65F-453E-B788-56D6E3F8D8D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E985FCC6-B056-4225-9B1B-F275323F6415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E985FCC6-B056-4225-9B1B-F275323F6415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E985FCC6-B056-4225-9B1B-F275323F6415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E985FCC6-B056-4225-9B1B-F275323F6415}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{570D5E69-B861-4290-AE6B-168E814901F8} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{4516BBC0-5E68-42B2-AD56-AB6E1775417E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D7590DC2-A65F-453E-B788-56D6E3F8D8D6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E985FCC6-B056-4225-9B1B-F275323F6415} = {D368F841-FE36-4A7F-BD66-8B655EC29392}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {117BAFD6-7714-4E7D-870B-0AEA11BDF273}

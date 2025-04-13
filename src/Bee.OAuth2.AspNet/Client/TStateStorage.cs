@@ -8,8 +8,8 @@ namespace Bee.OAuth2.AspNet
     /// </summary>
     public class TStateStorage : IStateStorage
     {
-        private const string CodeVerifieKey = "_CodeVerifieKey";
         private const string StateKey = "_StateKey";
+        private const string CodeVerifierKey = "_CodeVerifierKey";
 
         /// <summary>
         /// 儲存 `state` 參數值。
@@ -54,7 +54,7 @@ namespace Bee.OAuth2.AspNet
         /// <param name="codeVerifier">用戶端隨機產生的 `code_Verifier`  字串。</param>
         public void SaveCodeVerifier(string codeVerifier)
         {
-            HttpContext.Current.Session[CodeVerifieKey] = codeVerifier;
+            HttpContext.Current.Session[CodeVerifierKey] = codeVerifier;
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace Bee.OAuth2.AspNet
         /// </summary>
         public string GetCodeVerifier()
         {
-            return HttpContext.Current.Session[CodeVerifieKey] as string;
+            return HttpContext.Current.Session[CodeVerifierKey] as string;
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Bee.OAuth2.AspNet
         /// </summary>
         public void RemoveCodeVerifier()
         {
-            HttpContext.Current.Session.Remove(CodeVerifieKey);
+            HttpContext.Current.Session.Remove(CodeVerifierKey);
         }
     }
 }
