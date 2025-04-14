@@ -4,7 +4,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Version>1.0.8</Version>
+		<Version>1.0.9</Version>
 		<Authors>Bee.NET</Authors>
 		<Company>Bee.NET</Company>
 		<Product>Bee.NET</Product>
