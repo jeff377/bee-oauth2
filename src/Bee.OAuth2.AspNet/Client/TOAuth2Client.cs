@@ -7,7 +7,7 @@ namespace Bee.OAuth2.AspNet
     /// </summary>
     public class TOAuth2Client : TBaseOAuth2Client
     {
-        private TStateStorage _StateStorage = null;
+        private TStateStorage _stateStorage = null;
 
         /// <summary>
         /// 建構函式。
@@ -24,9 +24,9 @@ namespace Bee.OAuth2.AspNet
         {
             get
             {
-                if (_StateStorage == null)
-                    _StateStorage = new TStateStorage();
-                return _StateStorage;
+                if (_stateStorage == null)
+                    _stateStorage = new TStateStorage();
+                return _stateStorage;
             }
         }
     }

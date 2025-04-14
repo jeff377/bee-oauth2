@@ -13,9 +13,9 @@ namespace Bee.OAuth2.AspNetCore
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
-        /// 建構子，初始化 `TStateStorage` 類別的實例。
+        /// 建構函式。
         /// </summary>
-        /// <param name="httpContextAccessor"></param>
+        /// <param name="httpContextAccessor">提供目前 HttpContext 的存取權。</param>
         public TStateStorage(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
