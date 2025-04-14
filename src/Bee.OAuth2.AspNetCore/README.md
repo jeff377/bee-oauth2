@@ -67,11 +67,16 @@ public class AuthController : Controller
         var result = await _oauth2Manager.ValidateAuthorization();
         if (result.IsSuccess)
         {
-            var user = result.User;
-            return Content($"User: {user["name"]}, Email: {user["email"]}");
+            return Content($"ProviderName: {result.ProviderName}\n" +
+                            $"UserID: {result.UserInfo.UserId}\n" +
+                            $"UserName: {result.UserInfo.UserName}\n" +
+                            $"Email: {result.UserInfo.Email}\n" +
+                            $"RawJson: {result.UserInfo.RawJson}");
         }
-
-        return BadRequest(result.Exception?.Message);
+        else
+        {
+            return Content($"Error: {result.Exception?.Message}");
+        }
     }
 }
 ```
@@ -150,11 +155,16 @@ public class AuthController : Controller
         var result = await _oauth2Manager.ValidateAuthorization();
         if (result.IsSuccess)
         {
-            var user = result.User;
-            return Content($"用戶名稱：{user["name"]}，Email：{user["email"]}");
+            return Content($"ProviderName: {result.ProviderName}\n" +
+                            $"UserID: {result.UserInfo.UserId}\n" +
+                            $"UserName: {result.UserInfo.UserName}\n" +
+                            $"Email: {result.UserInfo.Email}\n" +
+                            $"RawJson: {result.UserInfo.RawJson}");
         }
-
-        return BadRequest(result.Exception?.Message);
+        else
+        {
+            return Content($"Error: {result.Exception?.Message}");
+        }
     }
 }
 ```
