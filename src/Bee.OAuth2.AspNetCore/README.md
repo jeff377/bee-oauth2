@@ -1,13 +1,14 @@
-# Bee.OAuth2.Desktop
 
-Bee.OAuth2.Desktop is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports **Google, Facebook, LINE, and Azure** authentication with an easy-to-use UI component.
+# Bee.OAuth2.AspNetCore
+
+`Bee.OAuth2.AspNetCore` is an ASP.NET Core library that simplifies OAuth2 authentication integration in your web applications. It supports **Google, Facebook, LINE, and Azure** via a centralized `TOAuth2Manager` with full DI support and PKCE.
 
 ## 📦 Installation
 
 Install via NuGet Package Manager:
 
 ```sh
-dotnet add package Bee.OAuth2.Desktop
+dotnet add package Bee.OAuth2.AspNetCore
 ```
 
 ## 🌍 Supported OAuth2 Providers
@@ -19,33 +20,59 @@ dotnet add package Bee.OAuth2.Desktop
 
 ## 🚀 Usage Example
 
-### Google OAuth2 Authentication
+### Configure in `Program.cs`
 
 ```csharp
-using Bee.OAuth2;
-using Bee.OAuth2.Desktop;
-
-private async void GoogleOAuth2()
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+builder.Services.AddSingleton<TOAuth2Manager>(provider =>
 {
-     var options = new TGoogleOAuth2Options()
+    var http = provider.GetRequiredService<IHttpContextAccessor>();
+
+    var options = new TOAuth2Options
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
-        RedirectUri = "http://localhost:5000/callback",
-        UsePKCE = true
+        RedirectUri = "https://localhost:5001/auth/callback",
+        UsePkce = true
     };
-    var client = new TOAuth2Client(options)
+
+    var client = new TOAuth2Client(options, http);
+    var manager = new TOAuth2Manager(http);
+    manager.RegisterClient("Google", client);
+    return manager;
+});
+```
+
+### Controller
+
+```csharp
+public class AuthController : Controller
+{
+    private readonly TOAuth2Manager _oauth2Manager;
+
+    public AuthController(TOAuth2Manager oauth2Manager)
     {
-        Caption = "Google Login",
-        Width = 600,
-        Height = 800
-    };
-    // Open the login interface. After the user logs in, return user information.
-    var result = await client.Login();
-    var userinfo = $"UserID : {result.UserInfo.UserId}\r\n" +
-            $"UserName : {result.UserInfo.UserName}\r\n" +
-            $"Email : {result.UserInfo.Email}\r\n" +
-            $"RawJson : \r\n{result.UserInfo.RawJson}";
+        _oauth2Manager = oauth2Manager;
+    }
+
+    public IActionResult Login()
+    {
+        _oauth2Manager.RedirectToAuthorization("Google");
+        return new EmptyResult();
+    }
+
+    public async Task<IActionResult> Callback()
+    {
+        var result = await _oauth2Manager.ValidateAuthorization();
+        if (result.IsSuccess)
+        {
+            var user = result.User;
+            return Content($"User: {user["name"]}, Email: {user["email"]}");
+        }
+
+        return BadRequest(result.Exception?.Message);
+    }
 }
 ```
 
@@ -55,16 +82,16 @@ This project is licensed under the MIT License.
 
 ---
 
-# Bee.OAuth2.Desktop（中文）
+# Bee.OAuth2.AspNetCore（中文）
 
-Bee.OAuth2.Desktop 是一個 Windows Forms 函式庫，提供 OAuth2 驗證的使用者介面。支援 **Google、Facebook、LINE 和 Azure** 的身份驗證，並內建易於使用的 UI 元件。
+`Bee.OAuth2.AspNetCore` 是一套針對 ASP.NET Core 網站設計的 OAuth2 認證整合函式庫。透過集中式的 `TOAuth2Manager` 搭配 DI 註冊，輕鬆整合 **Google、Facebook、LINE、Azure** 登入，並支援 PKCE 流程。
 
 ## 📦 安裝方式
 
 透過 NuGet 安裝：
 
 ```sh
-dotnet add package Bee.OAuth2.Desktop
+dotnet add package Bee.OAuth2.AspNetCore
 ```
 
 ## 🌍 支援的 OAuth2 提供者
@@ -76,33 +103,59 @@ dotnet add package Bee.OAuth2.Desktop
 
 ## 🚀 使用範例
 
-### Google OAuth2 驗證
+### 在 `Program.cs` 註冊
 
 ```csharp
-using Bee.OAuth2;
-using Bee.OAuth2.Desktop;
-
-private async void GoogleOAuth2()
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddSession();
+builder.Services.AddSingleton<TOAuth2Manager>(provider =>
 {
-     var options = new TGoogleOAuth2Options()
+    var http = provider.GetRequiredService<IHttpContextAccessor>();
+
+    var options = new TOAuth2Options
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
-        RedirectUri = "http://localhost:5000/callback",
-        UsePKCE = true
+        RedirectUri = "https://localhost:5001/auth/callback",
+        UsePkce = true
     };
-    var client = new TOAuth2Client(options)
+
+    var client = new TOAuth2Client(options, http);
+    var manager = new TOAuth2Manager(http);
+    manager.RegisterClient("Google", client);
+    return manager;
+});
+```
+
+### 控制器
+
+```csharp
+public class AuthController : Controller
+{
+    private readonly TOAuth2Manager _oauth2Manager;
+
+    public AuthController(TOAuth2Manager oauth2Manager)
     {
-        Caption = "Google Login",
-        Width = 600,
-        Height = 800
-    };
-    // 開啟登入界面，用戶執行登入後，回傳用戶資料
-    var result = await client.Login();
-    var userinfo = $"UserID : {result.UserInfo.UserId}\r\n" +
-            $"UserName : {result.UserInfo.UserName}\r\n" +
-            $"Email : {result.UserInfo.Email}\r\n" +
-            $"RawJson : \r\n{result.UserInfo.RawJson}";
+        _oauth2Manager = oauth2Manager;
+    }
+
+    public IActionResult Login()
+    {
+        _oauth2Manager.RedirectToAuthorization("Google");
+        return new EmptyResult();
+    }
+
+    public async Task<IActionResult> Callback()
+    {
+        var result = await _oauth2Manager.ValidateAuthorization();
+        if (result.IsSuccess)
+        {
+            var user = result.User;
+            return Content($"用戶名稱：{user["name"]}，Email：{user["email"]}");
+        }
+
+        return BadRequest(result.Exception?.Message);
+    }
 }
 ```
 
