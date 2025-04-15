@@ -68,8 +68,8 @@ namespace Bee.OAuth2
             if (UsePkce)
             {
                 // 產生 PKCE 驗證碼
-                string codeVerifier = PKCEHelper.GenerateCodeVerifier();
-                codeChallenge = PKCEHelper.GenerateCodeChallenge(codeVerifier);
+                string codeVerifier = PkceHelper.GenerateCodeVerifier();
+                codeChallenge = PkceHelper.GenerateCodeChallenge(codeVerifier);
                 // 使用 PKCE 驗證時，儲存 `code_Verifier` 參數值
                 StateStorage.SaveCodeVerifier(codeVerifier);
             }

@@ -8,7 +8,7 @@ namespace Bee.OAuth2
     /// PKCE (Proof Key for Code Exchange) 輔助工具類別，
     /// 用於產生 `code_verifier` 和 `code_challenge`，以提高 OAuth2 授權碼流程的安全性。
     /// </summary>
-    public static class PKCEHelper
+    public static class PkceHelper
     {
         /// <summary>
         /// 產生隨機的 `code_verifier`。
