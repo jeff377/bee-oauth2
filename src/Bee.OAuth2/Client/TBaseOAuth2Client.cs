@@ -15,7 +15,7 @@ namespace Bee.OAuth2
         /// <param name="options">OAuth2 設定選項。</param>
         public TBaseOAuth2Client(TOAuth2Options options)
         {
-            UsePKCE = options.UsePKCE;
+            UsePkce = options.UsePkce;
             Provider = CreateProvider(options);
         }
 
@@ -53,7 +53,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// 是否使用 PKCE 驗證。
         /// </summary>
-        public bool UsePKCE { get; private set; }
+        public bool UsePkce { get; private set; }
 
         /// <summary>
         /// 產生 OAuth2 授權 URL，讓使用者登入並授權應用程式。
@@ -65,7 +65,7 @@ namespace Bee.OAuth2
             StateStorage.SaveState(state);
 
             string codeChallenge = string.Empty;
-            if (UsePKCE)
+            if (UsePkce)
             {
                 // 產生 PKCE 驗證碼
                 string codeVerifier = PKCEHelper.GenerateCodeVerifier();
@@ -95,7 +95,7 @@ namespace Bee.OAuth2
         public async Task<string> GetAccessTokenAsync(string authorizationCode)
         {
             string codeVerifier = string.Empty;
-            if (UsePKCE)
+            if (UsePkce)
             {
                 // 使用 PKCE 驗證時，取得 `code_Verifier` 參數值，用於驗證授權碼請求的合法性
                 codeVerifier = StateStorage.GetCodeVerifier();

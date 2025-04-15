@@ -3,19 +3,19 @@
     "ClientId": "google-client-id",
     "ClientSecret": "google-client-secret",
     "RedirectUri": "https://localhost:44348/oauth2callback.aspx",
-    "UsePKCE": true
+    "UsePkce": true
   },
   "FacebookOAuth": {
     "ClientId": "facebook-client-id",
     "ClientSecret": "facebook-client-secret",
     "RedirectUri": "https://localhost:44348/oauth2callback.aspx",
-    "UsePKCE": true
+    "UsePkce": true
   },
   "LineOAuth": {
     "ClientId": "line-client-id",
     "ClientSecret": "line-client-secret",
     "RedirectUri": "https://localhost:44348/oauth2callback.aspx",
-    "UsePKCE": true
+    "UsePkce": true
   },
   "AzureOAuth": {
     "ClientId": "azure-client-id",

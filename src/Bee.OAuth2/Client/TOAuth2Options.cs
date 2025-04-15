@@ -47,6 +47,6 @@
         /// <summary>
         /// 是否使用 PKCE 驗證。
         /// </summary>
-        public bool UsePKCE { get; set; } = false;
+        public bool UsePkce { get; set; } = false;
     }
 }
