@@ -27,7 +27,7 @@ using Bee.OAuth2.WinForms;
 
 private async void GoogleOAuth2()
 {
-     var options = new TGoogleOAuth2Options()
+    var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
@@ -40,12 +40,16 @@ private async void GoogleOAuth2()
         Width = 600,
         Height = 800
     };
-    // Open the login interface. After the user logs in, return user information.
-    var result = await client.Login();
+
+    // Register the client globally
+    OAuth2Manager.RegisterClient("Google", client);
+
+    // Execute login
+    var result = await OAuth2Manager.Login("Google");
     var userinfo = $"UserID : {result.UserInfo.UserId}\r\n" +
-            $"UserName : {result.UserInfo.UserName}\r\n" +
-            $"Email : {result.UserInfo.Email}\r\n" +
-            $"RawJson : \r\n{result.UserInfo.RawJson}";
+                   $"UserName : {result.UserInfo.UserName}\r\n" +
+                   $"Email : {result.UserInfo.Email}\r\n" +
+                   $"RawJson : \r\n{result.UserInfo.RawJson}";
 }
 ```
 
@@ -84,7 +88,7 @@ using Bee.OAuth2.WinForms;
 
 private async void GoogleOAuth2()
 {
-     var options = new TGoogleOAuth2Options()
+    var options = new TGoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
@@ -97,15 +101,20 @@ private async void GoogleOAuth2()
         Width = 600,
         Height = 800
     };
-    // 開啟登入界面，用戶執行登入後，回傳用戶資料
-    var result = await client.Login();
+
+    // 註冊這個 client 到全域管理器
+    OAuth2Manager.RegisterClient("Google", client);
+
+    // 執行登入流程
+    var result = await OAuth2Manager.Login("Google");
     var userinfo = $"UserID : {result.UserInfo.UserId}\r\n" +
-            $"UserName : {result.UserInfo.UserName}\r\n" +
-            $"Email : {result.UserInfo.Email}\r\n" +
-            $"RawJson : \r\n{result.UserInfo.RawJson}";
+                   $"UserName : {result.UserInfo.UserName}\r\n" +
+                   $"Email : {result.UserInfo.Email}\r\n" +
+                   $"RawJson : \r\n{result.UserInfo.RawJson}";
 }
 ```
 
 ## 📜 授權
 
 本專案採用 MIT License。
+

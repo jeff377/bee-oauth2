@@ -23,7 +23,7 @@ dotnet add package Bee.OAuth2.AspNet
 
 ```csharp
 using Bee.OAuth2;
-using Bee.OAuth2.Providers;
+using Bee.OAuth2.AspNet;
 
 protected void Application_Start()
 {
@@ -63,7 +63,7 @@ Response.Write(
 
 ```csharp
 using Bee.OAuth2;
-using Bee.OAuth2.Providers;
+using Bee.OAuth2.AspNet;
 
 public void Configuration(IAppBuilder app)
 {
