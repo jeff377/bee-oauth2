@@ -16,7 +16,7 @@ namespace OAuthWinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string filePath = @"OAuthConfig.json";
+            string filePath = @"D:\Bee\config\OAuthConfig.json";
             var config = LoadOAuthConfig(filePath);
             RegisterIfExists("Google", 600, 700, config?.GoogleOAuth);
             RegisterIfExists("Facebook", 900, 500, config?.FacebookOAuth);
