@@ -29,7 +29,7 @@ builder.Services.AddSingleton<TOAuth2Manager>(provider =>
 {
     var http = provider.GetRequiredService<IHttpContextAccessor>();
 
-    var options = new TOAuth2Options
+    var options = new TGoogleOAuth2Options
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
@@ -117,7 +117,7 @@ builder.Services.AddSingleton<TOAuth2Manager>(provider =>
 {
     var http = provider.GetRequiredService<IHttpContextAccessor>();
 
-    var options = new TOAuth2Options
+    var options = new TGoogleOAuth2Options
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
