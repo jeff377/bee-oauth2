@@ -1,4 +1,6 @@
-﻿using Bee.OAuth2.AspNetCore;
+﻿using Bee.OAuth2;
+using Bee.OAuth2.AspNetCore;
+using Newtonsoft.Json;
 using OAuthAspNetCore.Models;
 
 namespace OAuthAspNetCore.Extensions
@@ -7,35 +9,31 @@ namespace OAuthAspNetCore.Extensions
     {
         public static TOAuth2Manager CreateOAuth2Manager(IServiceProvider provider)
         {
-            var config = provider.GetRequiredService<IConfiguration>();
             var accessor = provider.GetRequiredService<IHttpContextAccessor>();
-
-            var oauthConfig = config.Get<OAuthConfig>();
+            var config = LoadOAuthConfig(@"OAuthConfig.json");
             var manager = new TOAuth2Manager(accessor);
-
-            if (oauthConfig == null)
-            {
-                throw new InvalidOperationException("OAuth configuration is missing.");
-            }
-
-            if (oauthConfig.GoogleOAuth != null)
-            {
-                manager.RegisterClient("Google", new TOAuth2Client(oauthConfig.GoogleOAuth, accessor));
-            }
-            if (oauthConfig.FacebookOAuth != null)
-            {
-                manager.RegisterClient("Facebook", new TOAuth2Client(oauthConfig.FacebookOAuth, accessor));
-            }
-            if (oauthConfig.LineOAuth != null)
-            {
-                manager.RegisterClient("Line", new TOAuth2Client(oauthConfig.LineOAuth, accessor));
-            }
-            if (oauthConfig.AzureOAuth != null)
-            {
-                manager.RegisterClient("Azure", new TOAuth2Client(oauthConfig.AzureOAuth, accessor));
-            }
-
+            RegisterIfExists(manager, "Google", config?.GoogleOAuth, accessor);
+            RegisterIfExists(manager, "Facebook", config?.FacebookOAuth, accessor);
+            RegisterIfExists(manager, "Line", config?.LineOAuth, accessor);
+            RegisterIfExists(manager, "Azure", config?.AzureOAuth, accessor);
             return manager;
+        }
+
+        private static OAuthConfig LoadOAuthConfig(string filePath)
+        {
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("Configuration file not found.", filePath);
+
+            string json = File.ReadAllText(filePath);
+            return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
+        }
+
+        private static void RegisterIfExists(TOAuth2Manager manager, string name, TOAuth2Options? options, IHttpContextAccessor accessor)
+        {
+            if (options != null)
+            {
+                manager.RegisterClient(name, new TOAuth2Client(options, accessor));
+            }
         }
     }
 
