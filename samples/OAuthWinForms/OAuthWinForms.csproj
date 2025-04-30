@@ -35,8 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bee.Base, Version=3.0.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Bee.Base.3.0.5\lib\netstandard2.0\Bee.Base.dll</HintPath>
+    <Reference Include="Bee.Base, Version=3.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Bee.Base.3.0.6\lib\netstandard2.0\Bee.Base.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3179.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3179.45\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
