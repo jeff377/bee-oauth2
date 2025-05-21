@@ -59,7 +59,7 @@ namespace Bee.OAuth2.AspNetCore
             {
                 throw new InvalidOperationException($"Client '{clientName}' is not registered.");
             }
-            var state = EncryptionFunc.AesEncrypt(clientName);
+            var state =CryptoFunc.AesEncrypt(clientName);
             return client.GetAuthorizationUrl(state);
         }
 
@@ -102,7 +102,7 @@ namespace Bee.OAuth2.AspNetCore
 
             try
             {
-                var clientName = EncryptionFunc.AesDecrypt(state);
+                var clientName = CryptoFunc.AesDecrypt(state);
                 var client = GetClient(clientName);
                 if (client == null || !client.ValidateState(state))
                 {

@@ -53,7 +53,7 @@ namespace Bee.OAuth2.AspNet
         public static string GetAuthorizationUrl(string clientName)
         {
             var client = GetClient(clientName);
-            var state = EncryptionFunc.AesEncrypt(clientName);
+            var state = CryptoFunc.AesEncrypt(clientName);
             return client.GetAuthorizationUrl(state);
         }
 
@@ -77,7 +77,7 @@ namespace Bee.OAuth2.AspNet
 
             try
             {
-                var clientName = EncryptionFunc.AesDecrypt(state);
+                var clientName = CryptoFunc.AesDecrypt(state);
                 var client = GetClient(clientName);
                 if (!client.ValidateState(state))
                 {
