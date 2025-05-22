@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Version>1.0.10</Version>
+		<Version>1.0.11</Version>
 		<Authors>Bee.NET</Authors>
 		<Company>Bee.NET</Company>
 		<Product>Bee.NET</Product>
