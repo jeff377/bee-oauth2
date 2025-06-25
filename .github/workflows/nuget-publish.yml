@@ -28,19 +28,20 @@ jobs:
 
     - name: Build Bee.OAuth2 projects
       run: |
-        dotnet build src/Bee.OAuth2.Core/Bee.OAuth2.Core.csproj --configuration Release --no-restore
+        dotnet build src/Bee.OAuth2/Bee.OAuth2.csproj --configuration Release --no-restore
         dotnet build src/Bee.OAuth2.AspNet/Bee.OAuth2.AspNet.csproj --configuration Release --no-restore
         dotnet build src/Bee.OAuth2.AspNetCore/Bee.OAuth2.AspNetCore.csproj --configuration Release --no-restore
         dotnet build src/Bee.OAuth2.WinForms/Bee.OAuth2.WinForms.csproj --configuration Release --no-restore
-        dotnet build src/Bee.OAuth2.Client/Bee.OAuth2.Client.csproj --configuration Release --no-restore
+        dotnet build src/Bee.OAuth2.Desktop/Bee.OAuth2.Desktop.csproj --configuration Release --no-restore
 
     - name: Pack Bee.OAuth2 projects
       run: |
-        dotnet pack src/Bee.OAuth2.Core/Bee.OAuth2.Core.csproj --configuration Release --output ./nupkgs
+        dotnet pack src/Bee.OAuth2/Bee.OAuth2.csproj --configuration Release --output ./nupkgs
         dotnet pack src/Bee.OAuth2.AspNet/Bee.OAuth2.AspNet.csproj --configuration Release --output ./nupkgs
         dotnet pack src/Bee.OAuth2.AspNetCore/Bee.OAuth2.AspNetCore.csproj --configuration Release --output ./nupkgs
         dotnet pack src/Bee.OAuth2.WinForms/Bee.OAuth2.WinForms.csproj --configuration Release --output ./nupkgs
-        dotnet pack src/Bee.OAuth2.Client/Bee.OAuth2.Client.csproj --configuration Release --output ./nupkgs
+        dotnet pack src/Bee.OAuth2.Desktop/Bee.OAuth2.Desktop.csproj --configuration Release --output ./nupkgs
+
 
     - name: Push to NuGet
       run: |
@@ -60,11 +61,11 @@ jobs:
         name: Release ${{ github.ref_name }}
         body: |
           自動發佈 NuGet 套件：
-          - Bee.OAuth2.Core
+          - Bee.OAuth2
           - Bee.OAuth2.AspNet
           - Bee.OAuth2.AspNetCore
           - Bee.OAuth2.WinForms
-          - Bee.OAuth2.Client
+          - Bee.OAuth2.Desktop
 
           如需安裝請至 NuGet.org 查詢對應版本。
 
