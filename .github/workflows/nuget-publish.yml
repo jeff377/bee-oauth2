@@ -1,0 +1,70 @@
+name: Publish NuGet Packages
+
+on:
+  push:
+    tags:
+      - 'v*'  # 只有推送 tag（例如 v1.2.3）時才會觸發
+
+jobs:
+  publish:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          8.0.x
+          6.0.x
+
+    - name: Add MSBuild to PATH (for .NET Framework)
+      uses: microsoft/setup-msbuild@v1.3
+
+    - name: Restore dependencies
+      run: dotnet restore --locked-mode
+
+    - name: Build Bee.OAuth2 projects
+      run: |
+        dotnet build src/Bee.OAuth2.Core/Bee.OAuth2.Core.csproj --configuration Release --no-restore
+        dotnet build src/Bee.OAuth2.AspNet/Bee.OAuth2.AspNet.csproj --configuration Release --no-restore
+        dotnet build src/Bee.OAuth2.AspNetCore/Bee.OAuth2.AspNetCore.csproj --configuration Release --no-restore
+        dotnet build src/Bee.OAuth2.WinForms/Bee.OAuth2.WinForms.csproj --configuration Release --no-restore
+        dotnet build src/Bee.OAuth2.Client/Bee.OAuth2.Client.csproj --configuration Release --no-restore
+
+    - name: Pack Bee.OAuth2 projects
+      run: |
+        dotnet pack src/Bee.OAuth2.Core/Bee.OAuth2.Core.csproj --configuration Release --output ./nupkgs
+        dotnet pack src/Bee.OAuth2.AspNet/Bee.OAuth2.AspNet.csproj --configuration Release --output ./nupkgs
+        dotnet pack src/Bee.OAuth2.AspNetCore/Bee.OAuth2.AspNetCore.csproj --configuration Release --output ./nupkgs
+        dotnet pack src/Bee.OAuth2.WinForms/Bee.OAuth2.WinForms.csproj --configuration Release --output ./nupkgs
+        dotnet pack src/Bee.OAuth2.Client/Bee.OAuth2.Client.csproj --configuration Release --output ./nupkgs
+
+    - name: Push to NuGet
+      run: |
+        Get-ChildItem -Path ./nupkgs -Filter *.nupkg | ForEach-Object {
+          dotnet nuget push $_.FullName --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+        }
+
+  release:
+    needs: publish # 👈 確保發佈 NuGet 完成後才進行 Release
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: ${{ github.ref_name }}
+        name: Release ${{ github.ref_name }}
+        body: |
+          自動發佈 NuGet 套件：
+          - Bee.OAuth2.Core
+          - Bee.OAuth2.AspNet
+          - Bee.OAuth2.AspNetCore
+          - Bee.OAuth2.WinForms
+          - Bee.OAuth2.Client
+
+          如需安裝請至 NuGet.org 查詢對應版本。
+
