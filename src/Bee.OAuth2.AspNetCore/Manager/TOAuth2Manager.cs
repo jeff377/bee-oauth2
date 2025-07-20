@@ -1,5 +1,4 @@
-﻿using Bee.Base;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Bee.OAuth2.AspNetCore
 {
@@ -59,7 +58,7 @@ namespace Bee.OAuth2.AspNetCore
             {
                 throw new InvalidOperationException($"Client '{clientName}' is not registered.");
             }
-            var state =CryptoFunc.AesEncrypt(clientName);
+            var state = OAuth2StateCryptor.EncryptClientName(clientName);
             return client.GetAuthorizationUrl(state);
         }
 
@@ -102,7 +101,7 @@ namespace Bee.OAuth2.AspNetCore
 
             try
             {
-                var clientName = CryptoFunc.AesDecrypt(state);
+                var clientName = OAuth2StateCryptor.DecryptClientName(state);
                 var client = GetClient(clientName);
                 if (client == null || !client.ValidateState(state))
                 {
