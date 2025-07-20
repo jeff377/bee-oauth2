@@ -102,6 +102,39 @@ public async Task<ActionResult> Callback()
 }
 ```
 
+## 🔐 Key Setup
+
+### Generate a secure key for `state` encryption
+
+Bee.OAuth2.AspNet uses `AES-CBC + HMAC` to protect the OAuth2 `state` parameter. You must generate a 64-byte combined key and store it in the environment variable `OAUTH2_STATE_KEY`.
+
+#### 🔧 How to generate the key
+
+```csharp
+// Use this once to generate a base64 key
+var key = Bee.Base.AesCbcHmacKeyGenerator.GenerateCombinedKey();
+Console.WriteLine(Convert.ToBase64String(key));
+```
+
+#### ⚙️ Set the environment variable
+
+On Windows:
+
+1. Open **System Properties** → **Environment Variables**
+2. Add a new **User** or **System** variable:
+
+| Variable name        | Value (example)                          |
+|----------------------|------------------------------------------|
+| `OAUTH2_STATE_KEY`   | `VGhpcy1pcy1hLXRlc3Qta2V5LXdpdGgtNjQ...` |
+
+3. Restart **Visual Studio** and the application.
+
+Alternatively, you can set it using PowerShell:
+
+```powershell
+[System.Environment]::SetEnvironmentVariable("OAUTH2_STATE_KEY", "your-base64-key", "User")
+```
+
 ## 📜 License
 
 This project is licensed under the MIT License.
@@ -211,6 +244,38 @@ public async Task<ActionResult> Callback()
                    $"RawJson: {result.UserInfo.RawJson}");
 }
 ```
+
+## 🔐 金鑰設定
+
+### 產生用於加密 `state` 的安全金鑰
+
+Bee.OAuth2.AspNet 使用 `AES-CBC + HMAC` 演算法保護 OAuth2 的 `state` 參數。你必須先產生一組 64 位元組的組合金鑰，並設定為 `OAUTH2_STATE_KEY` 環境變數。
+
+#### 🔧 如何產生金鑰
+
+```csharp
+// 執行一次即可產生 Base64 格式的金鑰
+var key = Bee.Base.AesCbcHmacKeyGenerator.GenerateCombinedKey();
+Console.WriteLine(Convert.ToBase64String(key));
+```
+
+#### ⚙️ 設定環境變數（Windows）
+
+1. 開啟「系統內容」 →「環境變數」
+2. 在「使用者變數」或「系統變數」中新增一筆：
+
+| 變數名稱           | 值（範例）                                 |
+|--------------------|--------------------------------------------|
+| `OAUTH2_STATE_KEY` | `VGhpcy1pcy1hLXRlc3Qta2V5LXdpdGgtNjQ...`    |
+
+3. 重啟 Visual Studio 與網站應用程式。
+
+也可以使用 PowerShell 設定：
+
+```powershell
+[System.Environment]::SetEnvironmentVariable("OAUTH2_STATE_KEY", "你的 base64 金鑰", "User")
+```
+
 
 ## 📜 授權
 
