@@ -27,14 +27,14 @@ using Bee.OAuth2.AspNet;
 
 protected void Application_Start()
 {
-    var options = new TGoogleOAuth2Options()
+    var options = new GoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuth2Client(options);
+    var client = new OAuth2Client(options);
     OAuth2Manager.RegisterClient("Google", client);
 }
 ```
@@ -67,14 +67,14 @@ using Bee.OAuth2.AspNet;
 
 public void Configuration(IAppBuilder app)
 {
-    var options = new TGoogleOAuth2Options()
+    var options = new GoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuth2Client(options);
+    var client = new OAuth2Client(options);
     OAuth2Manager.RegisterClient("Google", client);
 }
 ```
@@ -170,14 +170,14 @@ using Bee.OAuth2.Providers;
 
 protected void Application_Start()
 {
-    var options = new TGoogleOAuth2Options()
+    var options = new GoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuth2Client(options);
+    var client = new OAuth2Client(options);
     OAuth2Manager.RegisterClient("Google", client);
 }
 ```
@@ -210,14 +210,14 @@ using Bee.OAuth2.Providers;
 
 public void Configuration(IAppBuilder app)
 {
-    var options = new TGoogleOAuth2Options()
+    var options = new GoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "your-redirect-uri",
         UsePKCE = true
     };
-    var client = new TOAuth2Client(options);
+    var client = new OAuth2Client(options);
     OAuth2Manager.RegisterClient("Google", client);
 }
 ```

@@ -25,11 +25,11 @@ dotnet add package Bee.OAuth2.AspNetCore
 ```csharp
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
-builder.Services.AddSingleton<TOAuth2Manager>(provider =>
+builder.Services.AddSingleton<OAuth2Manager>(provider =>
 {
     var http = provider.GetRequiredService<IHttpContextAccessor>();
 
-    var options = new TGoogleOAuth2Options
+    var options = new GoogleOAuth2Options
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
@@ -37,8 +37,8 @@ builder.Services.AddSingleton<TOAuth2Manager>(provider =>
         UsePkce = true
     };
 
-    var client = new TOAuth2Client(options, http);
-    var manager = new TOAuth2Manager(http);
+    var client = new OAuth2Client(options, http);
+    var manager = new OAuth2Manager(http);
     manager.RegisterClient("Google", client);
     return manager;
 });
@@ -49,9 +49,9 @@ builder.Services.AddSingleton<TOAuth2Manager>(provider =>
 ```csharp
 public class AuthController : Controller
 {
-    private readonly TOAuth2Manager _oauth2Manager;
+    private readonly OAuth2Manager _oauth2Manager;
 
-    public AuthController(TOAuth2Manager oauth2Manager)
+    public AuthController(OAuth2Manager oauth2Manager)
     {
         _oauth2Manager = oauth2Manager;
     }
@@ -146,11 +146,11 @@ dotnet add package Bee.OAuth2.AspNetCore
 ```csharp
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddSession();
-builder.Services.AddSingleton<TOAuth2Manager>(provider =>
+builder.Services.AddSingleton<OAuth2Manager>(provider =>
 {
     var http = provider.GetRequiredService<IHttpContextAccessor>();
 
-    var options = new TGoogleOAuth2Options
+    var options = new GoogleOAuth2Options
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
@@ -158,8 +158,8 @@ builder.Services.AddSingleton<TOAuth2Manager>(provider =>
         UsePkce = true
     };
 
-    var client = new TOAuth2Client(options, http);
-    var manager = new TOAuth2Manager(http);
+    var client = new OAuth2Client(options, http);
+    var manager = new OAuth2Manager(http);
     manager.RegisterClient("Google", client);
     return manager;
 });

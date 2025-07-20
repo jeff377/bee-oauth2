@@ -30,7 +30,7 @@ class Program
 {
     static async Task Main()
     {
-        var options = new TGoogleOAuth2Options
+        var options = new GoogleOAuth2Options
         {
             ClientId = "your-client-id",
             ClientSecret = "your-client-secret",
@@ -38,7 +38,7 @@ class Program
             Scopes = { "openid", "email", "profile" }
         };
 
-        var provider = new TGoogleOAuth2Provider(options);
+        var provider = new GoogleOAuth2Provider(options);
         string authUrl = provider.GetAuthorizationUrl("random_state_string");
 
         Console.WriteLine($"Open this URL in your browser: {authUrl}");
@@ -57,7 +57,7 @@ class Program
 ### Facebook OAuth2 Authentication Example
 
 ```csharp
-var options = new TFacebookOAuth2Options
+var options = new FacebookOAuth2Options
 {
     ClientId = "your-client-id",
     ClientSecret = "your-client-secret",
@@ -65,13 +65,13 @@ var options = new TFacebookOAuth2Options
     Scopes = { "public_profile", "email" }
 };
 
-var provider = new TFacebookOAuth2Provider(options);
+var provider = new FacebookOAuth2Provider(options);
 ```
 
 ### LINE OAuth2 Authentication Example
 
 ```csharp
-var options = new TLineOAuth2Options
+var options = new LineOAuth2Options
 {
     ClientId = "your-client-id",
     ClientSecret = "your-client-secret",
@@ -79,13 +79,13 @@ var options = new TLineOAuth2Options
     Scopes = { "profile", "openid", "email" }
 };
 
-var provider = new TLineOAuth2Provider(options);
+var provider = new LineOAuth2Provider(options);
 ```
 
 ### Azure OAuth2 Authentication Example
 
 ```csharp
-var options = new TAzureOAuth2Options
+var options = new AzureOAuth2Options
 {
     ClientId = "your-client-id",
     ClientSecret = "your-client-secret",
@@ -93,7 +93,7 @@ var options = new TAzureOAuth2Options
     Scopes = { "openid", "profile", "email" }
 };
 
-var provider = new TAzureOAuth2Provider(options);
+var provider = new AzureOAuth2Provider(options);
 ```
 
 ## License
@@ -134,7 +134,7 @@ class Program
 {
     static async Task Main()
     {
-        var options = new TGoogleOAuth2Options
+        var options = new GoogleOAuth2Options
         {
             ClientId = "your-client-id",
             ClientSecret = "your-client-secret",
@@ -142,7 +142,7 @@ class Program
             Scopes = { "openid", "email", "profile" }
         };
 
-        var provider = new TGoogleOAuth2Provider(options);
+        var provider = new GoogleOAuth2Provider(options);
         string authUrl = provider.GetAuthorizationUrl("random_state_string");
 
         Console.WriteLine($"請在瀏覽器中打開此 URL: {authUrl}");
@@ -161,7 +161,7 @@ class Program
 ### Facebook OAuth2 驗證範例
 
 ```csharp
-var options = new TFacebookOAuth2Options
+var options = new FacebookOAuth2Options
 {
     ClientId = "your-client-id",
     ClientSecret = "your-client-secret",
@@ -169,13 +169,13 @@ var options = new TFacebookOAuth2Options
     Scopes = { "public_profile", "email" }
 };
 
-var provider = new TFacebookOAuth2Provider(options);
+var provider = new FacebookOAuth2Provider(options);
 ```
 
 ### LINE OAuth2 驗證範例
 
 ```csharp
-var options = new TLineOAuth2Options
+var options = new LineOAuth2Options
 {
     ClientId = "your-client-id",
     ClientSecret = "your-client-secret",
@@ -183,13 +183,13 @@ var options = new TLineOAuth2Options
     Scopes = { "profile", "openid", "email" }
 };
 
-var provider = new TLineOAuth2Provider(options);
+var provider = new LineOAuth2Provider(options);
 ```
 
 ### Azure OAuth2 驗證範例
 
 ```csharp
-var options = new TAzureOAuth2Options
+var options = new AzureOAuth2Options
 {
     ClientId = "your-client-id",
     ClientSecret = "your-client-secret",
@@ -197,7 +197,7 @@ var options = new TAzureOAuth2Options
     Scopes = { "openid", "profile", "email" }
 };
 
-var provider = new TAzureOAuth2Provider(options);
+var provider = new AzureOAuth2Provider(options);
 ```
 
 ## 授權

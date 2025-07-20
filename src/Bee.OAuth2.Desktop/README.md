@@ -27,14 +27,14 @@ using Bee.OAuth2.Desktop;
 
 private async void GoogleOAuth2()
 {
-    var options = new TGoogleOAuth2Options()
+    var options = new GoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "http://localhost:5000/callback",
         UsePKCE = true
     };
-    var client = new TOAuth2Client(options)
+    var client = new OAuth2Client(options)
     {
         Caption = "Google Login",
         Width = 600,
@@ -88,14 +88,14 @@ using Bee.OAuth2.Desktop;
 
 private async void GoogleOAuth2()
 {
-    var options = new TGoogleOAuth2Options()
+    var options = new GoogleOAuth2Options()
     {
         ClientId = "your-client-id",
         ClientSecret = "your-client-secret",
         RedirectUri = "http://localhost:5000/callback",
         UsePKCE = true
     };
-    var client = new TOAuth2Client(options)
+    var client = new OAuth2Client(options)
     {
         Caption = "Google Login",
         Width = 600,
