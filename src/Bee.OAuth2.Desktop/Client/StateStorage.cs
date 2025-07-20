@@ -1,9 +1,9 @@
-﻿namespace Bee.OAuth2.WinForms
+﻿namespace Bee.OAuth2.Desktop
 {
     /// <summary>
     /// 提供 WInForms 程式的 OAuth2 驗證流程中的狀態儲存機制。
     /// </summary>
-    public class TStateStorage : IStateStorage
+    public class StateStorage : IStateStorage
     {
         /// <summary>
         /// OAuth2 驗證流程的 `state` 參數值。

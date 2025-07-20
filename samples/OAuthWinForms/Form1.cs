@@ -33,11 +33,11 @@ namespace OAuthWinForms
             return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
         }
 
-        private void RegisterIfExists(string name, int width, int height, TOAuth2Options options)
+        private void RegisterIfExists(string name, int width, int height, OAuth2Options options)
         {
             if (options != null)
             {
-                var client = new TOAuth2Client(options)
+                var client = new OAuth2Client(options)
                 {
                     Caption = $"{name} Login",
                     Width = width,
@@ -51,7 +51,7 @@ namespace OAuthWinForms
         /// 顯示 OAuth2 整合認證回傳結果。
         /// </summary>
         /// <param name="result">授權碼取得相關資訊的回傳結果。</param>
-        private void ShowResult(TAuthorizationResult result)
+        private void ShowResult(AuthorizationResult result)
         {
             if (result.Exception != null)
             {

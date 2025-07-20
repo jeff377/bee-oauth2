@@ -5,9 +5,9 @@ namespace Bee.OAuth2.AspNetCore
     /// <summary>
     /// 提供 ASP.NET Core 程式進行 OAuth2 整合認證的用戶端。
     /// </summary>
-    public class TOAuth2Client : TBaseOAuth2Client
+    public class OAuth2Client : BaseOAuth2Client
     {
-        private TStateStorage? _stateStorage = null;
+        private StateStorage? _stateStorage = null;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         /// <summary>
@@ -15,7 +15,7 @@ namespace Bee.OAuth2.AspNetCore
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
         /// <param name="httpContextAccessor">提供目前 HttpContext 的存取權。</param>
-        public TOAuth2Client(TOAuth2Options options, IHttpContextAccessor httpContextAccessor) : base(options)
+        public OAuth2Client(OAuth2Options options, IHttpContextAccessor httpContextAccessor) : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
         }
@@ -27,7 +27,7 @@ namespace Bee.OAuth2.AspNetCore
         {
             get
             {
-                return _stateStorage ??= new TStateStorage(_httpContextAccessor);
+                return _stateStorage ??= new StateStorage(_httpContextAccessor);
             }
         }
     }

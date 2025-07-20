@@ -8,12 +8,12 @@ namespace Bee.OAuth2.WinForms
     /// <summary>
     /// OAuth2 用戶登入界面，用於取得授權碼。
     /// </summary>
-    public partial class frmAuthorization : Form
+    public partial class AuthorizationForm : Form
     {
         /// <summary>
         /// 建構函式。
         /// </summary>
-        public frmAuthorization()
+        public AuthorizationForm()
         {
             InitializeComponent();
             // 初始化 WebView2
@@ -32,7 +32,7 @@ namespace Bee.OAuth2.WinForms
         /// <summary>
         /// OAuth2 整合用戶端。
         /// </summary>
-        public TOAuth2Client Client { get; private set; }
+        public OAuth2Client Client { get; private set; }
 
         /// <summary>
         /// OAuth2 驗證流程完成後的回呼網址。
@@ -51,7 +51,7 @@ namespace Bee.OAuth2.WinForms
         /// <param name="caption">標題文字。</param>
         /// <param name="width">視窗寬度 。</param>
         /// <param name="height">視窗高度。</param>
-        public string ShowForm(TOAuth2Client client, string caption, int width, int height)
+        public string ShowForm(OAuth2Client client, string caption, int width, int height)
         {
             Client = client;
             RedirectUrl = client.Provider.GetRedirectUrl();

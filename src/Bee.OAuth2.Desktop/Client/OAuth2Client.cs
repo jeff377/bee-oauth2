@@ -3,13 +3,13 @@
     /// <summary>
     /// 提供 WInForms 程式進行 OAuth2 整合認證的用戶端。
     /// </summary>
-    public class TOAuth2Client : TBaseOAuth2Client
+    public class OAuth2Client : BaseOAuth2Client
     {
         /// <summary>
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TOAuth2Client(TOAuth2Options options) : base(options)
+        public OAuth2Client(OAuth2Options options) : base(options)
         {
         }
 
@@ -31,7 +31,7 @@
         /// <summary>
         /// /OAuth2 驗證流程中的狀態儲存機制。
         /// </summary>
-        public override IStateStorage StateStorage { get; } = new TStateStorage();
+        public override IStateStorage StateStorage { get; } = new StateStorage();
 
         /// <summary>
         /// 開啟登入界面，用戶執行登入後，回傳授權碼。
@@ -41,7 +41,7 @@
             string caption = string.IsNullOrWhiteSpace(Caption) ? this.Provider.ProviderName + " Login" : Caption;
 
             // 開啟 OAuth2 登入界面，若無法取得授權碼，則回傳空字串
-            var form = new frmAuthorization();
+            var form = new AuthorizationForm();
             string code = form.ShowForm(this, caption, Width, Height);
             return code;
         }
@@ -49,7 +49,7 @@
         /// <summary>
         /// 開啟登入界面，用戶執行登入後，回傳用戶資料。
         /// </summary>
-        public async Task<TAuthorizationResult> Login()
+        public async Task<AuthorizationResult> Login()
         {
             try
             {
@@ -59,7 +59,7 @@
             }
             catch (Exception ex)
             {
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     IsSuccess = false,
                     Exception = ex

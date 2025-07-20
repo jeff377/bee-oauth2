@@ -7,11 +7,11 @@ namespace OAuthAspNetCore.Extensions
 {
     public static class OAuth2RegistrationHelper
     {
-        public static TOAuth2Manager CreateOAuth2Manager(IServiceProvider provider)
+        public static OAuth2Manager CreateOAuth2Manager(IServiceProvider provider)
         {
             var accessor = provider.GetRequiredService<IHttpContextAccessor>();
             var config = LoadOAuthConfig(@"OAuthConfig.json");
-            var manager = new TOAuth2Manager(accessor);
+            var manager = new OAuth2Manager(accessor);
             RegisterIfExists(manager, "Google", config?.GoogleOAuth, accessor);
             RegisterIfExists(manager, "Facebook", config?.FacebookOAuth, accessor);
             RegisterIfExists(manager, "Line", config?.LineOAuth, accessor);
@@ -28,11 +28,11 @@ namespace OAuthAspNetCore.Extensions
             return JsonConvert.DeserializeObject<OAuthConfig>(json) ?? new OAuthConfig();
         }
 
-        private static void RegisterIfExists(TOAuth2Manager manager, string name, TOAuth2Options? options, IHttpContextAccessor accessor)
+        private static void RegisterIfExists(OAuth2Manager manager, string name, OAuth2Options? options, IHttpContextAccessor accessor)
         {
             if (options != null)
             {
-                manager.RegisterClient(name, new TOAuth2Client(options, accessor));
+                manager.RegisterClient(name, new OAuth2Client(options, accessor));
             }
         }
     }

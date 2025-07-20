@@ -3,7 +3,7 @@
     /// <summary>
     /// OAuth2 設定選項基底類別，包含 Client ID、Secret、Redirect URI 及相關端點。
     /// </summary>
-    public abstract class TOAuth2Options
+    public abstract class OAuth2Options
     {
         /// <summary>
         /// OAuth2 應用程式的 Client ID（用於識別應用）。

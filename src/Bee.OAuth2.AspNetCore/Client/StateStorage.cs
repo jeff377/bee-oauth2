@@ -6,7 +6,7 @@ namespace Bee.OAuth2.AspNetCore
     /// <summary>
     /// 提供 ASP.NET Core 程式的 OAuth2 驗證流程中的狀態儲存機制。
     /// </summary>
-    public class TStateStorage : IStateStorage
+    public class StateStorage : IStateStorage
     {
         private const string StateKey = "_StateKey";
         private const string CodeVerifierKey = "_CodeVerifierKey";
@@ -16,7 +16,7 @@ namespace Bee.OAuth2.AspNetCore
         /// 建構函式。
         /// </summary>
         /// <param name="httpContextAccessor">提供目前 HttpContext 的存取權。</param>
-        public TStateStorage(IHttpContextAccessor httpContextAccessor)
+        public StateStorage(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

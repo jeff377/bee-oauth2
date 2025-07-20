@@ -5,7 +5,7 @@ namespace Bee.OAuth2
     /// <summary>
     /// 授權碼取得相關資訊的回傳結果。
     /// </summary>
-    public class TAuthorizationResult
+    public class AuthorizationResult
     {
         /// <summary>
         /// OAuth2 驗證服務提供者名稱。
@@ -20,7 +20,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// 用戶資料。
         /// </summary>
-        public TUserInfo UserInfo { get; set; }
+        public UserInfo UserInfo { get; set; }
 
         /// <summary>
         /// OAuth2 Access Token。

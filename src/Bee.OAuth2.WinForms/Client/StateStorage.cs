@@ -1,15 +1,19 @@
-﻿using System;
-using System.Web;
-
-namespace Bee.OAuth2.AspNet
+﻿namespace Bee.OAuth2.WinForms
 {
     /// <summary>
-    /// 提供 ASP.NET 程式的 OAuth2 驗證流程中的狀態儲存機制。
+    /// 提供 WInForms 程式的 OAuth2 驗證流程中的狀態儲存機制。
     /// </summary>
-    public class TStateStorage : IStateStorage
+    public class StateStorage : IStateStorage
     {
-        private const string StateKey = "_StateKey";
-        private const string CodeVerifierKey = "_CodeVerifierKey";
+        /// <summary>
+        /// OAuth2 驗證流程的 `state` 參數值。
+        /// </summary>
+        private string State { get; set; } = string.Empty;
+
+        /// <summary>
+        /// OAuth2 驗證流程的 `code_Verifier` 參數值。
+        /// </summary>
+        private string CodeVerifier { get; set; } = string.Empty;
 
         /// <summary>
         /// 儲存 `state` 參數值。
@@ -17,14 +21,7 @@ namespace Bee.OAuth2.AspNet
         /// <param name="value">儲存的狀態值，例如隨機產生的 `state` 字串。</param>
         public void SaveState(string value)
         {
-            HttpCookie cookie = new HttpCookie(StateKey, value)
-            {
-                HttpOnly = true,  // 防止 JavaScript 存取，避免 XSS 攻擊
-                Secure = true,  // 只允許 HTTPS 傳輸，避免中間人攻擊
-                SameSite = SameSiteMode.None,  // 允許跨站傳遞（避免跨網站登入問題）
-                Expires = DateTime.Now.Add(TimeSpan.FromMinutes(10))  // 設定有效時間為 10 分鐘
-            };
-            HttpContext.Current.Response.Cookies.Add(cookie);
+            this.State = value;
         }
 
         /// <summary>
@@ -33,7 +30,7 @@ namespace Bee.OAuth2.AspNet
         /// <returns>返回儲存的 `state` 值，如果不存在則回傳 `null`。</returns>
         public string GetState()
         {
-            return HttpContext.Current.Request.Cookies[StateKey]?.Value;
+            return this.State;
         }
 
         /// <summary>
@@ -41,11 +38,7 @@ namespace Bee.OAuth2.AspNet
         /// </summary>
         public void RemoveState()
         {
-            if (HttpContext.Current.Request.Cookies[StateKey] != null)
-            {
-                HttpCookie cookie = new HttpCookie(StateKey) { Expires = DateTime.Now.AddDays(-1) };
-                HttpContext.Current.Response.Cookies.Add(cookie);
-            }
+            this.State = string.Empty;
         }
 
         /// <summary>
@@ -54,7 +47,7 @@ namespace Bee.OAuth2.AspNet
         /// <param name="codeVerifier">用戶端隨機產生的 `code_Verifier`  字串。</param>
         public void SaveCodeVerifier(string codeVerifier)
         {
-            HttpContext.Current.Session[CodeVerifierKey] = codeVerifier;
+            this.CodeVerifier = codeVerifier;
         }
 
         /// <summary>
@@ -62,7 +55,7 @@ namespace Bee.OAuth2.AspNet
         /// </summary>
         public string GetCodeVerifier()
         {
-            return HttpContext.Current.Session[CodeVerifierKey] as string;
+            return this.CodeVerifier;
         }
 
         /// <summary>
@@ -70,7 +63,7 @@ namespace Bee.OAuth2.AspNet
         /// </summary>
         public void RemoveCodeVerifier()
         {
-            HttpContext.Current.Session.Remove(CodeVerifierKey);
+            this.CodeVerifier = string.Empty;
         }
     }
 }

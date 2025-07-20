@@ -12,7 +12,7 @@ namespace Bee.OAuth2
     /// <summary>
     /// OAuth2 驗證服務提供者基底類別，負責處理授權流程、交換 Access Token 及取得用戶資訊。
     /// </summary>
-    public abstract class TOAuth2Provider : IOAuth2Provider
+    public abstract class OAuth2Provider : IOAuth2Provider
     {
         /// <summary>
         /// HttpClient 實例，用於發送 HTTP 請求。
@@ -23,7 +23,7 @@ namespace Bee.OAuth2
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TOAuth2Provider(TOAuth2Options options)
+        public OAuth2Provider(OAuth2Options options)
         {
             if (options == null)
                 throw new ArgumentNullException(nameof(options));
@@ -38,7 +38,7 @@ namespace Bee.OAuth2
         /// <summary>
         /// OAuth2 設定選項。
         /// </summary>
-        public TOAuth2Options Options { get; private set; }
+        public OAuth2Options Options { get; private set; }
 
         /// <summary>
         /// 取得 OAuth2 授權 URL 的參數集合。
@@ -180,7 +180,7 @@ namespace Bee.OAuth2
         /// 解析用戶資訊 JSON 字串。
         /// </summary>
         /// <param name="json">用戶資訊 JSON 字串。</param>
-        public abstract TUserInfo ParseUserJson(string json);
+        public abstract UserInfo ParseUserJson(string json);
 
         /// <summary>
         /// 取得 Refresh Token 的參數集合。

@@ -1,6 +1,6 @@
-﻿namespace Bee.OAuth2.WinForms
+﻿namespace Bee.OAuth2.Desktop
 {
-    partial class frmAuthorization
+    partial class AuthorizationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,17 +32,16 @@
             // 
             // frmAuthorization
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(584, 661);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAuthorization";
             this.ShowIcon = false;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = FormStartPosition.CenterScreen;
             this.Text = "frmAuthorization";
             this.ResumeLayout(false);
-
         }
 
         #endregion

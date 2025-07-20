@@ -12,14 +12,14 @@ namespace Bee.OAuth2.WinForms
         /// <summary>
         /// 存放 OAuth2 用戶端的集合。
         /// </summary>
-        private static Dictionary<string, TOAuth2Client> Clients { get; } = new Dictionary<string, TOAuth2Client>();
+        private static Dictionary<string, OAuth2Client> Clients { get; } = new Dictionary<string, OAuth2Client>();
 
         /// <summary>
         /// 註冊 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
         /// <param name="client">OAuth2 用戶端。</param>
-        public static void RegisterClient(string clientName, TOAuth2Client client)
+        public static void RegisterClient(string clientName, OAuth2Client client)
         {
             if (string.IsNullOrWhiteSpace(clientName))
                 throw new ArgumentException("Client name cannot be null or empty.", nameof(clientName));
@@ -34,7 +34,7 @@ namespace Bee.OAuth2.WinForms
         /// 取得已註冊的 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
-        public static TOAuth2Client GetClient(string clientName)
+        public static OAuth2Client GetClient(string clientName)
         {
             if (Clients.TryGetValue(clientName, out var client))
             {
@@ -48,7 +48,7 @@ namespace Bee.OAuth2.WinForms
         /// 執行登入。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
-        public static Task<TAuthorizationResult> Login(string clientName)
+        public static Task<AuthorizationResult> Login(string clientName)
         {
             var client = GetClient(clientName);
             if (client == null)

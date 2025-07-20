@@ -4,9 +4,9 @@ namespace OAuthAspNet
 {
     public class OAuthConfig
     {
-        public TGoogleOAuth2Options GoogleOAuth { get; set; }
-        public TFacebookOAuth2Options FacebookOAuth { get; set; }
-        public TLineOAuth2Options LineOAuth { get; set; }
-        public TAzureOAuth2Options AzureOAuth { get; set; }
+        public GoogleOAuth2Options GoogleOAuth { get; set; }
+        public FacebookOAuth2Options FacebookOAuth { get; set; }
+        public LineOAuth2Options LineOAuth { get; set; }
+        public AzureOAuth2Options AzureOAuth { get; set; }
     }
 }

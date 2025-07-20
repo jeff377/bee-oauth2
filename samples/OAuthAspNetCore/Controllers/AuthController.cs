@@ -5,9 +5,9 @@ namespace OAuthAspNetCore.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly TOAuth2Manager _oauth2Manager;
+        private readonly OAuth2Manager _oauth2Manager;
 
-        public AuthController(TOAuth2Manager oauth2Manager)
+        public AuthController(OAuth2Manager oauth2Manager)
         {
             _oauth2Manager = oauth2Manager;
         }

@@ -5,16 +5,16 @@ namespace Bee.OAuth2.AspNetCore
     /// <summary>
     /// 提供 ASP.NET Core 程式 OAuth2 整合認證管理者。
     /// </summary>
-    public class TOAuth2Manager
+    public class OAuth2Manager
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private Dictionary<string, TOAuth2Client> Clients { get; } = new Dictionary<string, TOAuth2Client>();
+        private Dictionary<string, OAuth2Client> Clients { get; } = new Dictionary<string, OAuth2Client>();
 
         /// <summary>
         /// 建構函式。
         /// </summary>
         /// <param name="httpContextAccessor">提供目前 HttpContext 的存取權。</param>
-        public TOAuth2Manager(IHttpContextAccessor httpContextAccessor)
+        public OAuth2Manager(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
@@ -24,7 +24,7 @@ namespace Bee.OAuth2.AspNetCore
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
         /// <param name="client">OAuth2 用戶端。</param>
-        public void RegisterClient(string clientName, TOAuth2Client client)
+        public void RegisterClient(string clientName, OAuth2Client client)
         {
             if (string.IsNullOrWhiteSpace(clientName))
                 throw new ArgumentException("Client name cannot be null or empty.", nameof(clientName));
@@ -37,7 +37,7 @@ namespace Bee.OAuth2.AspNetCore
         /// 取得已註冊的 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
-        public TOAuth2Client? GetClient(string clientName)
+        public OAuth2Client? GetClient(string clientName)
         {
             if (Clients.TryGetValue(clientName, out var client))
             {
@@ -75,12 +75,12 @@ namespace Bee.OAuth2.AspNetCore
         /// <summary>
         /// 驗證 OAuth2 回傳授權碼，並取得用戶資料。
         /// </summary>
-        public async Task<TAuthorizationResult> ValidateAuthorization()
+        public async Task<AuthorizationResult> ValidateAuthorization()
         {
             var request = _httpContextAccessor.HttpContext?.Request;
             if (request == null)
             {
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     IsSuccess = false,
                     Exception = new InvalidOperationException("HttpContext or Request is null.")
@@ -92,7 +92,7 @@ namespace Bee.OAuth2.AspNetCore
 
             if (string.IsNullOrEmpty(code) || string.IsNullOrEmpty(state))
             {
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     IsSuccess = false,
                     Exception = new InvalidOperationException("Authorization code or state is missing.")
@@ -111,7 +111,7 @@ namespace Bee.OAuth2.AspNetCore
             }
             catch (Exception ex)
             {
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     IsSuccess = false,
                     Exception = ex

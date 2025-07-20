@@ -3,7 +3,7 @@
     /// <summary>
     /// 用戶資料。
     /// </summary>
-    public class TUserInfo
+    public class UserInfo
     {
         /// <summary>
         /// 用戶帳號。

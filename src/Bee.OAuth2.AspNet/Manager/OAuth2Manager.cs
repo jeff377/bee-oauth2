@@ -14,14 +14,14 @@ namespace Bee.OAuth2.AspNet
         /// <summary>
         /// 存放 OAuth2 用戶端的集合。
         /// </summary>
-        private static Dictionary<string, TOAuth2Client> Clients { get; } = new Dictionary<string, TOAuth2Client>();
+        private static Dictionary<string, OAuth2Client> Clients { get; } = new Dictionary<string, OAuth2Client>();
  
         /// <summary>
         /// 註冊 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
         /// <param name="client">OAuth2 用戶端。</param>
-        public static void RegisterClient(string clientName, TOAuth2Client client)
+        public static void RegisterClient(string clientName, OAuth2Client client)
         {
             if (string.IsNullOrWhiteSpace(clientName))
                 throw new ArgumentException("Client name cannot be null or empty.", nameof(clientName));
@@ -36,7 +36,7 @@ namespace Bee.OAuth2.AspNet
         /// 取得已註冊的 OAuth2 用戶端。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
-        public static TOAuth2Client GetClient(string clientName)
+        public static OAuth2Client GetClient(string clientName)
         {
             if (Clients.TryGetValue(clientName, out var client))
             {
@@ -70,7 +70,7 @@ namespace Bee.OAuth2.AspNet
         /// <summary>
         /// 驗證 OAuth2 回傳授權碼，並取得用戶資料。
         /// </summary>
-        public static async Task<TAuthorizationResult> ValidateAuthorization()
+        public static async Task<AuthorizationResult> ValidateAuthorization()
         {
             string code = HttpContext.Current.Request.QueryString["code"];
             string state = HttpContext.Current.Request.QueryString["state"]; // OAuth2 回傳的 state
@@ -87,7 +87,7 @@ namespace Bee.OAuth2.AspNet
             }
             catch (Exception ex)
             {
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     IsSuccess = false,
                     Exception = ex

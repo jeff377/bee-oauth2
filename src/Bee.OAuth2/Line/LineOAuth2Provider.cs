@@ -6,13 +6,13 @@ namespace Bee.OAuth2
     /// <summary>
     /// LINE OAuth2 驗證服務提供者，負責處理授權流程、交換 Access Token 及取得用戶資訊。
     /// </summary>
-    public class TLineOAuth2Provider : TOAuth2Provider
+    public class LineOAuth2Provider : OAuth2Provider
     {
         /// <summary>
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TLineOAuth2Provider(TLineOAuth2Options options) : base(options)
+        public LineOAuth2Provider(LineOAuth2Options options) : base(options)
         {
         }
 
@@ -25,14 +25,14 @@ namespace Bee.OAuth2
         /// 解析用戶資訊 JSON 字串。
         /// </summary>
         /// <param name="json">用戶資訊 JSON 字串。</param>
-        public override TUserInfo ParseUserJson(string json)
+        public override UserInfo ParseUserJson(string json)
         {
             if (string.IsNullOrEmpty(json))
                 throw new ArgumentNullException(nameof(json), "JSON string cannot be null or empty.");
 
             var jObject = JObject.Parse(json);
 
-            return new TUserInfo
+            return new UserInfo
             {
                 UserId = jObject["userId"]?.ToString(),
                 UserName = jObject["displayName"]?.ToString(),

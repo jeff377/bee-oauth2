@@ -3,12 +3,12 @@
     /// <summary>
     /// LINE OAuth2 設定選項，包含 Client ID、Secret、Redirect URI 及相關端點。
     /// </summary>
-    public class TLineOAuth2Options : TOAuth2Options
+    public class LineOAuth2Options : OAuth2Options
     {
         /// <summary>
         /// 建構函式。
         /// </summary>
-        public TLineOAuth2Options()
+        public LineOAuth2Options()
         {
             Scopes = new[] { "profile", "openid", "email" };
             AuthorizationEndpoint = "https://access.line.me/oauth2/v2.1/authorize";

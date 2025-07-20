@@ -7,13 +7,13 @@ namespace Bee.OAuth2
     /// <summary>
     /// 提供 OAuth2 驗證的基本功能，適用於不同平台的擴充。
     /// </summary>
-    public abstract class TBaseOAuth2Client
+    public abstract class BaseOAuth2Client
     {
         /// <summary>
         /// 建構函式。
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        public TBaseOAuth2Client(TOAuth2Options options)
+        public BaseOAuth2Client(OAuth2Options options)
         {
             UsePkce = options.UsePkce;
             Provider = CreateProvider(options);
@@ -23,18 +23,18 @@ namespace Bee.OAuth2
         /// 建立 OAuth2 驗證服務提供者。  
         /// </summary>
         /// <param name="options">OAuth2 設定選項。</param>
-        private IOAuth2Provider CreateProvider(TOAuth2Options options)
+        private IOAuth2Provider CreateProvider(OAuth2Options options)
         {
             switch (options)
             {
-                case TGoogleOAuth2Options googleOptions:
-                    return new TGoogleOAuth2Provider(googleOptions);
-                case TLineOAuth2Options lineOptions:
-                    return new TLineOAuth2Provider(lineOptions);
-                case TAzureOAuth2Options azureOptions:
-                    return new TAzureOAuth2Provider(azureOptions);
-                case TFacebookOAuth2Options facebookOptions:
-                    return new TFacebookOAuth2Provider(facebookOptions);
+                case GoogleOAuth2Options googleOptions:
+                    return new GoogleOAuth2Provider(googleOptions);
+                case LineOAuth2Options lineOptions:
+                    return new LineOAuth2Provider(lineOptions);
+                case AzureOAuth2Options azureOptions:
+                    return new AzureOAuth2Provider(azureOptions);
+                case FacebookOAuth2Options facebookOptions:
+                    return new FacebookOAuth2Provider(facebookOptions);
                 default:
                     throw new NotSupportedException("Unsupported OAuth provider.");
             }
@@ -119,7 +119,7 @@ namespace Bee.OAuth2
         /// </summary>
         /// <param name="authorizationCode">回傳的授權碼。</param>
         /// <returns>授權碼取得相關資訊的回傳結果。</returns>
-        public async Task<TAuthorizationResult> ValidateAuthorization(string authorizationCode)
+        public async Task<AuthorizationResult> ValidateAuthorization(string authorizationCode)
         {
             try
             {
@@ -135,7 +135,7 @@ namespace Bee.OAuth2
                 string userInfo = await GetUserInfoAsync(accessToken);
 
                 // 回傳結果
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     ProviderName = Provider.ProviderName,
                     IsSuccess = true,
@@ -145,7 +145,7 @@ namespace Bee.OAuth2
             }
             catch (Exception ex)
             {
-                return new TAuthorizationResult()
+                return new AuthorizationResult()
                 {
                     IsSuccess = false,
                     Exception = ex

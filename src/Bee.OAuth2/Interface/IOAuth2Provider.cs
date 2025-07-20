@@ -44,7 +44,7 @@ namespace Bee.OAuth2
         /// 解析用戶資訊 JSON 字串。
         /// </summary>
         /// <param name="json">用戶資訊 JSON 字串。</param>
-        TUserInfo ParseUserJson(string json);
+        UserInfo ParseUserJson(string json);
 
         /// <summary>
         /// 使用 Refresh Token 取得新的 Access Token。
