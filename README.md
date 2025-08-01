@@ -1,4 +1,4 @@
-# Bee.OAuth2
+﻿# Bee.OAuth2
 
 Bee.OAuth2 is a .NET library for integrating OAuth2 authentication into various applications, including desktop and web.
 
@@ -30,4 +30,10 @@ dotnet add package Bee.OAuth2.WinForms
 # Install .NET WinForms UI component
 dotnet add package Bee.OAuth2.Desktop
 ```
+
+## 📬 Contact & Follow
+You're welcome to follow my technical notes and hands-on experience sharing
+
+[Facebook](https://www.facebook.com/profile.php?id=61574839666569) ｜ [HackMD](https://hackmd.io/@jeff377) ｜ [GitHub](https://github.com/jeff377) ｜ [NuGet](https://www.nuget.org/profiles/jeff377)
+
 
