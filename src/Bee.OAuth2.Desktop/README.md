@@ -1,6 +1,6 @@
 # Bee.OAuth2.Desktop
 
-Bee.OAuth2.Desktop is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports **Google, Facebook, LINE, and Azure** authentication with an easy-to-use UI component.
+Bee.OAuth2.Desktop is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports **Google, Facebook, LINE, Azure, and Auth0** authentication with an easy-to-use UI component.
 
 ## 📦 Installation
 
@@ -16,6 +16,7 @@ dotnet add package Bee.OAuth2.Desktop
 - ✅ Facebook
 - ✅ LINE
 - ✅ Azure (Microsoft Entra ID)
+- ✅ Auth0
 
 ## 🚀 Usage Example
 
@@ -61,7 +62,7 @@ This project is licensed under the MIT License.
 
 # Bee.OAuth2.Desktop（中文）
 
-Bee.OAuth2.Desktop 是一個 Windows Forms 函式庫，提供 OAuth2 驗證的使用者介面。支援 **Google、Facebook、LINE 和 Azure** 的身份驗證，並內建易於使用的 UI 元件。
+Bee.OAuth2.Desktop 是一個 Windows Forms 函式庫，提供 OAuth2 驗證的使用者介面。支援 **Google、Facebook、LINE、Azure 以及 Auth0** 的身份驗證，並內建易於使用的 UI 元件。
 
 ## 📦 安裝方式
 
@@ -77,6 +78,7 @@ dotnet add package Bee.OAuth2.Desktop
 - ✅ Facebook
 - ✅ LINE
 - ✅ Azure（Microsoft Entra ID）
+- ✅ Auth0
 
 ## 🚀 使用範例
 

@@ -7,7 +7,7 @@
 		<Company>Bee.NET</Company>
 		<Product>Bee.NET</Product>
 		<Copyright>© Bee.NET. All rights reserved.</Copyright>
-		<Description>Bee.OAuth2.AspNet is an OAuth2 authentication library designed for ASP.NET WebForms / MVC, supporting Google, Facebook, LINE, and Azure.</Description>		
+                <Description>Bee.OAuth2.AspNet is an OAuth2 authentication library designed for ASP.NET WebForms / MVC, supporting Google, Facebook, LINE, Azure, and Auth0.</Description>
 		<PackageIcon>bee.png</PackageIcon>
 		<PackageTags>OAuth2 ASP.NET WebForms/MVC</PackageTags>
 		<PackageReleaseNotes></PackageReleaseNotes>

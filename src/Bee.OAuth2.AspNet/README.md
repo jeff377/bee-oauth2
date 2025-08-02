@@ -1,6 +1,6 @@
 # Bee.OAuth2.AspNet
 
-Bee.OAuth2.AspNet is an OAuth2 authentication library designed for **ASP.NET WebForms / MVC**, supporting **Google, Facebook, LINE, and Azure**.
+Bee.OAuth2.AspNet is an OAuth2 authentication library designed for **ASP.NET WebForms / MVC**, supporting **Google, Facebook, LINE, Azure, and Auth0**.
 
 ## 📦 Installation
 
@@ -16,6 +16,7 @@ dotnet add package Bee.OAuth2.AspNet
 - ✅ Facebook
 - ✅ LINE
 - ✅ Azure (Microsoft Entra ID)
+- ✅ Auth0
 
 ## 🚀 Usage Example (ASP.NET WebForms)
 
@@ -143,7 +144,7 @@ This project is licensed under the MIT License.
 
 # Bee.OAuth2.AspNet（中文）
 
-Bee.OAuth2.AspNet 是一個專為 **ASP.NET WebForms / MVC** 設計的 OAuth2 認證函式庫，支援 **Google、Facebook、LINE、Azure** 等 OAuth2 提供者。
+Bee.OAuth2.AspNet 是一個專為 **ASP.NET WebForms / MVC** 設計的 OAuth2 認證函式庫，支援 **Google、Facebook、LINE、Azure、Auth0** 等 OAuth2 提供者。
 
 ## 📦 安裝方式
 
@@ -159,6 +160,7 @@ dotnet add package Bee.OAuth2.AspNet
 - ✅ Facebook
 - ✅ LINE
 - ✅ Azure（Microsoft Entra ID）
+- ✅ Auth0
 
 ## 🚀 使用範例（ASP.NET WebForms）
 
