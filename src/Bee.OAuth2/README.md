@@ -1,6 +1,6 @@
 # Bee.OAuth2
 
-Bee.OAuth2 is a lightweight .NET OAuth2 authentication library that supports multiple providers, including Google, Facebook, LINE, and Azure.
+Bee.OAuth2 is a lightweight .NET OAuth2 authentication library that supports multiple providers, including Google, Facebook, LINE, Azure, and Auth0.
 
 ## Installation
 
@@ -16,6 +16,7 @@ dotnet add package Bee.OAuth2
 - Facebook
 - LINE
 - Azure (Microsoft Entra ID)
+- Auth0
 
 ## Usage Examples
 
@@ -96,6 +97,21 @@ var options = new AzureOAuth2Options
 var provider = new AzureOAuth2Provider(options);
 ```
 
+### Auth0 OAuth2 Authentication Example
+
+```csharp
+var options = new Auth0OAuth2Options
+{
+    Domain = "your-domain.auth0.com",
+    ClientId = "your-client-id",
+    ClientSecret = "your-client-secret",
+    RedirectUri = "http://localhost",
+    Scopes = { "openid", "profile", "email" }
+};
+
+var provider = new Auth0OAuth2Provider(options);
+```
+
 ## License
 
 This project is licensed under the MIT License.
@@ -104,7 +120,7 @@ This project is licensed under the MIT License.
 
 # Bee.OAuth2 (中文)
 
-Bee.OAuth2 是一個輕量級的 .NET OAuth2 驗證函式庫，支援 Google、Facebook、LINE 和 Azure（Microsoft Entra ID）。
+Bee.OAuth2 是一個輕量級的 .NET OAuth2 驗證函式庫，支援 Google、Facebook、LINE、Azure（Microsoft Entra ID）以及 Auth0。
 
 ## 安裝
 
@@ -120,6 +136,7 @@ dotnet add package Bee.OAuth2
 - Facebook
 - LINE
 - Azure（Microsoft Entra ID）
+- Auth0
 
 ## 使用範例
 
@@ -198,6 +215,21 @@ var options = new AzureOAuth2Options
 };
 
 var provider = new AzureOAuth2Provider(options);
+```
+
+### Auth0 OAuth2 驗證範例
+
+```csharp
+var options = new Auth0OAuth2Options
+{
+    Domain = "your-domain.auth0.com",
+    ClientId = "your-client-id",
+    ClientSecret = "your-client-secret",
+    RedirectUri = "http://localhost",
+    Scopes = { "openid", "profile", "email" }
+};
+
+var provider = new Auth0OAuth2Provider(options);
 ```
 
 ## 授權

@@ -7,7 +7,7 @@
 		<Company>Bee.NET</Company>
 		<Product>Bee.NET</Product>
 		<Copyright>© Bee.NET. All rights reserved.</Copyright>
-		<Description>Bee.OAuth2.Desktop is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports Google, Facebook, LINE, and Azure authentication with an easy-to-use UI component.</Description>
+                <Description>Bee.OAuth2.Desktop is a Windows Forms library that provides a user interface for OAuth2 authentication. It supports Google, Facebook, LINE, Azure, and Auth0 authentication with an easy-to-use UI component.</Description>
 		<PackageIcon>bee.png</PackageIcon>
 		<PackageTags>OAuth2 WinForms</PackageTags>
 		<PackageReleaseNotes></PackageReleaseNotes>

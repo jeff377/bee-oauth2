@@ -1,7 +1,7 @@
 
 # Bee.OAuth2.AspNetCore
 
-Bee.OAuth2.AspNetCore is an ASP.NET Core library that simplifies OAuth2 authentication integration in your web applications. It supports **Google, Facebook, LINE, and Azure** via a centralized `TOAuth2Manager` with full DI support and PKCE.
+Bee.OAuth2.AspNetCore is an ASP.NET Core library that simplifies OAuth2 authentication integration in your web applications. It supports **Google, Facebook, LINE, Azure, and Auth0** via a centralized `TOAuth2Manager` with full DI support and PKCE.
 
 ## 📦 Installation
 
@@ -17,6 +17,7 @@ dotnet add package Bee.OAuth2.AspNetCore
 - ✅ Facebook
 - ✅ LINE
 - ✅ Azure (Microsoft Entra ID)
+- ✅ Auth0
 
 ## 🚀 Usage Example
 
@@ -122,7 +123,7 @@ This project is licensed under the MIT License.
 
 # Bee.OAuth2.AspNetCore（中文）
 
-Bee.OAuth2.AspNetCore 是一套針對 ASP.NET Core 網站設計的 OAuth2 認證整合函式庫。透過集中式的 `TOAuth2Manager` 搭配 DI 註冊，輕鬆整合 **Google、Facebook、LINE、Azure** 登入，並支援 PKCE 流程。
+Bee.OAuth2.AspNetCore 是一套針對 ASP.NET Core 網站設計的 OAuth2 認證整合函式庫。透過集中式的 `TOAuth2Manager` 搭配 DI 註冊，輕鬆整合 **Google、Facebook、LINE、Azure、Auth0** 登入，並支援 PKCE 流程。
 
 ## 📦 安裝方式
 
@@ -138,6 +139,7 @@ dotnet add package Bee.OAuth2.AspNetCore
 - ✅ Facebook
 - ✅ LINE
 - ✅ Azure（Microsoft Entra ID）
+- ✅ Auth0
 
 ## 🚀 使用範例
 
