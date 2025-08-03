@@ -21,5 +21,11 @@
     "ClientId": "azure-client-id",
     "ClientSecret": "azure-client-secret",
     "RedirectUri": "https://localhost:7032/auth/callback"
+  },
+  "Auth0OAuth": {
+    "Domain": "your-domain.auth0.com",
+    "ClientId": "auth0-client-id",
+    "ClientSecret": "auth0-client-secret",
+    "RedirectUri": "https://localhost:7032/auth/callback"
   }
 }
