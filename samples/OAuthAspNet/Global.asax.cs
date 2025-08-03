@@ -11,6 +11,7 @@ namespace OAuthAspNet
 		protected void Application_Start(object sender, EventArgs e)
 		{
 			string filePath = Server.MapPath("~/App_Data/OAuthConfig.json");
+			// string filePath = @"D:\Config\WebOAuthConfig.json";
             if (!File.Exists(filePath)) { return; }
 
             var config = LoadOAuthConfig(filePath);
@@ -18,6 +19,7 @@ namespace OAuthAspNet
             RegisterIfExists("Facebook", config?.FacebookOAuth);
             RegisterIfExists("Line", config?.LineOAuth);
             RegisterIfExists("Azure", config?.AzureOAuth);
+			RegisterIfExists("Auth0", config?.Auth0OAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)

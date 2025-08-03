@@ -29,5 +29,10 @@ namespace OAuthAspNet
         {
             OAuth2Manager.RedirectToAuthorization("Azure");
         }
+
+        protected void btnAuth0_Click(object sender, EventArgs e)
+        {
+            OAuth2Manager.RedirectToAuthorization("Auth0");
+        }
     }
 }
