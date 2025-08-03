@@ -33,7 +33,8 @@
             btnFacebook = new Button();
             btnLine = new Button();
             btnAzure = new Button();
-            this.SuspendLayout();
+            btnAuth0 = new Button();
+            SuspendLayout();
             // 
             // btnGoogle
             // 
@@ -43,7 +44,7 @@
             btnGoogle.TabIndex = 0;
             btnGoogle.Text = "Google";
             btnGoogle.UseVisualStyleBackColor = true;
-            btnGoogle.Click += this.btnGoogle_Click;
+            btnGoogle.Click += btnGoogle_Click;
             // 
             // edtUserInfo
             // 
@@ -61,7 +62,7 @@
             btnFacebook.TabIndex = 2;
             btnFacebook.Text = "Facebook";
             btnFacebook.UseVisualStyleBackColor = true;
-            btnFacebook.Click += this.btnFacebook_Click;
+            btnFacebook.Click += btnFacebook_Click;
             // 
             // btnLine
             // 
@@ -71,7 +72,7 @@
             btnLine.TabIndex = 3;
             btnLine.Text = "LINE";
             btnLine.UseVisualStyleBackColor = true;
-            btnLine.Click += this.btnLine_Click;
+            btnLine.Click += btnLine_Click;
             // 
             // btnAzure
             // 
@@ -81,26 +82,37 @@
             btnAzure.TabIndex = 4;
             btnAzure.Text = "Azure";
             btnAzure.UseVisualStyleBackColor = true;
-            btnAzure.Click += this.btnAzure_Click;
+            btnAzure.Click += btnAzure_Click;
+            // 
+            // btnAuth0
+            // 
+            btnAuth0.Location = new Point(336, 255);
+            btnAuth0.Name = "btnAuth0";
+            btnAuth0.Size = new Size(75, 23);
+            btnAuth0.TabIndex = 5;
+            btnAuth0.Text = "Auth0";
+            btnAuth0.UseVisualStyleBackColor = true;
+            btnAuth0.Click += btnAuth0_Click;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(505, 290);
-            this.Controls.Add(btnAzure);
-            this.Controls.Add(btnLine);
-            this.Controls.Add(btnFacebook);
-            this.Controls.Add(edtUserInfo);
-            this.Controls.Add(btnGoogle);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "Form1";
-            this.StartPosition = FormStartPosition.CenterScreen;
-            this.Text = "Form1";
-            this.Load += this.Form1_Load;
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(505, 290);
+            Controls.Add(btnAuth0);
+            Controls.Add(btnAzure);
+            Controls.Add(btnLine);
+            Controls.Add(btnFacebook);
+            Controls.Add(edtUserInfo);
+            Controls.Add(btnGoogle);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Form1";
+            Load += Form1_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -110,5 +122,6 @@
         private Button btnFacebook;
         private Button btnLine;
         private Button btnAzure;
+        private Button btnAuth0;
     }
 }

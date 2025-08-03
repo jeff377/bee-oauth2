@@ -33,13 +33,15 @@
             this.btnFacebook = new System.Windows.Forms.Button();
             this.btnLine = new System.Windows.Forms.Button();
             this.btnAzure = new System.Windows.Forms.Button();
+            this.btnAuth0 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGoogle
             // 
-            this.btnGoogle.Location = new System.Drawing.Point(12, 255);
+            this.btnGoogle.Location = new System.Drawing.Point(16, 319);
+            this.btnGoogle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGoogle.Name = "btnGoogle";
-            this.btnGoogle.Size = new System.Drawing.Size(75, 23);
+            this.btnGoogle.Size = new System.Drawing.Size(100, 29);
             this.btnGoogle.TabIndex = 0;
             this.btnGoogle.Text = "Google";
             this.btnGoogle.UseVisualStyleBackColor = true;
@@ -47,17 +49,19 @@
             // 
             // edtUserInfo
             // 
-            this.edtUserInfo.Location = new System.Drawing.Point(12, 12);
+            this.edtUserInfo.Location = new System.Drawing.Point(16, 15);
+            this.edtUserInfo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.edtUserInfo.Multiline = true;
             this.edtUserInfo.Name = "edtUserInfo";
-            this.edtUserInfo.Size = new System.Drawing.Size(481, 237);
+            this.edtUserInfo.Size = new System.Drawing.Size(640, 295);
             this.edtUserInfo.TabIndex = 1;
             // 
             // btnFacebook
             // 
-            this.btnFacebook.Location = new System.Drawing.Point(93, 255);
+            this.btnFacebook.Location = new System.Drawing.Point(124, 319);
+            this.btnFacebook.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnFacebook.Name = "btnFacebook";
-            this.btnFacebook.Size = new System.Drawing.Size(75, 23);
+            this.btnFacebook.Size = new System.Drawing.Size(100, 29);
             this.btnFacebook.TabIndex = 2;
             this.btnFacebook.Text = "Facebook";
             this.btnFacebook.UseVisualStyleBackColor = true;
@@ -65,9 +69,10 @@
             // 
             // btnLine
             // 
-            this.btnLine.Location = new System.Drawing.Point(174, 255);
+            this.btnLine.Location = new System.Drawing.Point(232, 319);
+            this.btnLine.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLine.Name = "btnLine";
-            this.btnLine.Size = new System.Drawing.Size(75, 23);
+            this.btnLine.Size = new System.Drawing.Size(100, 29);
             this.btnLine.TabIndex = 3;
             this.btnLine.Text = "LINE";
             this.btnLine.UseVisualStyleBackColor = true;
@@ -75,24 +80,38 @@
             // 
             // btnAzure
             // 
-            this.btnAzure.Location = new System.Drawing.Point(255, 255);
+            this.btnAzure.Location = new System.Drawing.Point(340, 319);
+            this.btnAzure.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnAzure.Name = "btnAzure";
-            this.btnAzure.Size = new System.Drawing.Size(75, 23);
+            this.btnAzure.Size = new System.Drawing.Size(100, 29);
             this.btnAzure.TabIndex = 4;
             this.btnAzure.Text = "Azure";
             this.btnAzure.UseVisualStyleBackColor = true;
             this.btnAzure.Click += new System.EventHandler(this.btnAzure_Click);
             // 
+            // btnAuth0
+            // 
+            this.btnAuth0.Location = new System.Drawing.Point(448, 318);
+            this.btnAuth0.Margin = new System.Windows.Forms.Padding(4);
+            this.btnAuth0.Name = "btnAuth0";
+            this.btnAuth0.Size = new System.Drawing.Size(100, 29);
+            this.btnAuth0.TabIndex = 5;
+            this.btnAuth0.Text = "Auth0";
+            this.btnAuth0.UseVisualStyleBackColor = true;
+            this.btnAuth0.Click += new System.EventHandler(this.btnAuth0_Click);
+            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(505, 290);
+            this.ClientSize = new System.Drawing.Size(673, 362);
+            this.Controls.Add(this.btnAuth0);
             this.Controls.Add(this.btnAzure);
             this.Controls.Add(this.btnLine);
             this.Controls.Add(this.btnFacebook);
             this.Controls.Add(this.edtUserInfo);
             this.Controls.Add(this.btnGoogle);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -111,6 +130,7 @@
         private System.Windows.Forms.Button btnFacebook;
         private System.Windows.Forms.Button btnLine;
         private System.Windows.Forms.Button btnAzure;
+        private System.Windows.Forms.Button btnAuth0;
     }
 }
 

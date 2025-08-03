@@ -16,12 +16,13 @@ namespace OAuthWinForms
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string filePath = @"D:\Bee\config\OAuthConfig.json";
+            string filePath = @"OAuthConfig.json";
             var config = LoadOAuthConfig(filePath);
             RegisterIfExists("Google", 600, 700, config?.GoogleOAuth);
             RegisterIfExists("Facebook", 900, 500, config?.FacebookOAuth);
             RegisterIfExists("Line", 600, 800, config?.LineOAuth);
             RegisterIfExists("Azure", 800, 600, config?.AzureOAuth);
+            RegisterIfExists("Auth0", 800, 600, config?.Auth0OAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)
@@ -103,6 +104,11 @@ namespace OAuthWinForms
         private void btnAzure_Click(object sender, EventArgs e)
         {
             Login("Azure");
+        }
+
+        private void btnAuth0_Click(object sender, EventArgs e)
+        {
+            Login("Auth0");
         }
     }
 }

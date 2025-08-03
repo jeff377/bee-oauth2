@@ -35,6 +35,8 @@ namespace Bee.OAuth2
                     return new AzureOAuth2Provider(azureOptions);
                 case FacebookOAuth2Options facebookOptions:
                     return new FacebookOAuth2Provider(facebookOptions);
+                case Auth0OAuth2Options auth0Options:
+                    return new Auth0OAuth2Provider(auth0Options);
                 default:
                     throw new NotSupportedException("Unsupported OAuth provider.");
             }

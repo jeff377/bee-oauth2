@@ -22,5 +22,12 @@
     "ClientSecret": "azure-client-secret",
     "RedirectUri": "https://login.microsoftonline.com/common/oauth2/nativeclient",
     "UsePkce": true
+  },
+  "Auth0OAuth": {
+    "Domain": "your-domain.auth0.com",
+    "ClientId": "auth0-client-id",
+    "ClientSecret": "auth0-client-secret",
+    "RedirectUri": "http://localhost/callback",
+    "UsePKCE": true
   }
 }
