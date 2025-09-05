@@ -109,6 +109,11 @@ public async Task<ActionResult> Callback()
 
 Bee.OAuth2.AspNet uses `AES-CBC + HMAC` to protect the OAuth2 `state` parameter. You must generate a 64-byte combined key and store it in the environment variable `OAUTH2_STATE_KEY`.
 
+> **Note:**  
+> If the environment variable `OAUTH2_STATE_KEY` is **not set**, the state value will **not be encrypted**.  
+> Instead, the client name will be encoded using Base64 only.  
+> This provides basic obfuscation but does **not** guarantee confidentiality or integrity.
+
 #### 🔧 How to generate the key
 
 ```csharp
@@ -252,6 +257,11 @@ public async Task<ActionResult> Callback()
 ### 產生用於加密 `state` 的安全金鑰
 
 Bee.OAuth2.AspNet 使用 `AES-CBC + HMAC` 演算法保護 OAuth2 的 `state` 參數。你必須先產生一組 64 位元組的組合金鑰，並設定為 `OAUTH2_STATE_KEY` 環境變數。
+
+> **注意：**  
+> 如果未設定 `OAUTH2_STATE_KEY` 環境變數，state 值將**不會加密**，  
+> 而是僅以 Base64 編碼 client name。  
+> 這僅提供基本遮蔽，**不保證機密性或完整性**。
 
 #### 🔧 如何產生金鑰
 
