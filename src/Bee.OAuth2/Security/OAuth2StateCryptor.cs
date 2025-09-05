@@ -10,41 +10,37 @@ namespace Bee.OAuth2
     /// </summary>
     public static class OAuth2StateCryptor
     {
-        private static readonly byte[] combinedKey = GetCombinedKey();
-
-        /// <summary>
-        /// 取得組合的 AES 和 HMAC 金鑰。
-        /// </summary>
-        /// <remarks>
-        /// 可使用 <see cref="AesCbcHmacKeyGenerator.GenerateBase64CombinedKey"/> 方法產生組合金鑰，
-        /// 並將其設定為 <c>OAUTH2_STATE_KEY</c> 環境變數，用於後續加解密作業。
-        /// </remarks>
-        private static byte[] GetCombinedKey()
-        {
-            string base64 = Environment.GetEnvironmentVariable("OAUTH2_STATE_KEY");
-            if (string.IsNullOrWhiteSpace(base64))
-                throw new InvalidOperationException("Missing environment variable: OAUTH2_STATE_KEY");
-
-            return Convert.FromBase64String(base64);
-        }
+        private static readonly string base64Key = Environment.GetEnvironmentVariable("OAUTH2_STATE_KEY");
+        private static readonly bool useEncryption = !string.IsNullOrWhiteSpace(base64Key);
+        private static readonly byte[] combinedKey = useEncryption ? Convert.FromBase64String(base64Key) : null;
 
         /// <summary>
         /// 將用戶端名稱加密為 state 字串。
+        /// 若未設定 OAUTH2_STATE_KEY，則僅做 Base64 編碼。
         /// </summary>
         /// <param name="clientName">用戶端名稱。</param>
         public static string EncryptClientName(string clientName)
         {
             if (string.IsNullOrWhiteSpace(clientName))
                 throw new ArgumentNullException(nameof(clientName));
-                        
-            AesCbcHmacKeyGenerator.FromCombinedKey(combinedKey, out var aesKey, out var hmacKey);
+
             var plainBytes = Encoding.UTF8.GetBytes(clientName);
-            var cipherBytes = AesCbcHmacCryptor.Encrypt(plainBytes, aesKey, hmacKey);
-            return Convert.ToBase64String(cipherBytes);
+
+            if (useEncryption)
+            {
+                AesCbcHmacKeyGenerator.FromCombinedKey(combinedKey, out var aesKey, out var hmacKey);
+                var cipherBytes = AesCbcHmacCryptor.Encrypt(plainBytes, aesKey, hmacKey);
+                return Convert.ToBase64String(cipherBytes);
+            }
+            else
+            {
+                return Convert.ToBase64String(plainBytes);
+            }
         }
 
         /// <summary>
         /// 從 state 字串解密取得用戶端名稱，若驗證失敗將拋出例外。
+        /// 若未設定 OAUTH2_STATE_KEY，則僅做 Base64 解碼。
         /// </summary>
         /// <param name="state">state 字串。</param>
         public static string DecryptClientName(string state)
@@ -52,10 +48,18 @@ namespace Bee.OAuth2
             if (string.IsNullOrWhiteSpace(state))
                 throw new ArgumentNullException(nameof(state));
 
-            AesCbcHmacKeyGenerator.FromCombinedKey(combinedKey, out var aesKey, out var hmacKey);
             var cipherBytes = Convert.FromBase64String(state);
-            var plainBytes = AesCbcHmacCryptor.Decrypt(cipherBytes, aesKey, hmacKey);
-            return Encoding.UTF8.GetString(plainBytes);
+
+            if (useEncryption)
+            {
+                AesCbcHmacKeyGenerator.FromCombinedKey(combinedKey, out var aesKey, out var hmacKey);
+                var plainBytes = AesCbcHmacCryptor.Decrypt(cipherBytes, aesKey, hmacKey);
+                return Encoding.UTF8.GetString(plainBytes);
+            }
+            else
+            {
+                return Encoding.UTF8.GetString(cipherBytes);
+            }
         }
     }
 }
