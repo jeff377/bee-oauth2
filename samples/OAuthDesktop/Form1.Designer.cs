@@ -34,6 +34,7 @@
             btnLine = new Button();
             btnAzure = new Button();
             btnAuth0 = new Button();
+            btnOkta = new Button();
             SuspendLayout();
             // 
             // btnGoogle
@@ -93,12 +94,23 @@
             btnAuth0.Text = "Auth0";
             btnAuth0.UseVisualStyleBackColor = true;
             btnAuth0.Click += btnAuth0_Click;
-            // 
+            //
+            // btnOkta
+            //
+            btnOkta.Location = new Point(417, 255);
+            btnOkta.Name = "btnOkta";
+            btnOkta.Size = new Size(75, 23);
+            btnOkta.TabIndex = 6;
+            btnOkta.Text = "Okta";
+            btnOkta.UseVisualStyleBackColor = true;
+            btnOkta.Click += btnOkta_Click;
+            //
             // Form1
-            // 
+            //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(505, 290);
+            Controls.Add(btnOkta);
             Controls.Add(btnAuth0);
             Controls.Add(btnAzure);
             Controls.Add(btnLine);
@@ -123,5 +135,6 @@
         private Button btnLine;
         private Button btnAzure;
         private Button btnAuth0;
+        private Button btnOkta;
     }
 }

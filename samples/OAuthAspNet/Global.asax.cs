@@ -19,7 +19,8 @@ namespace OAuthAspNet
             RegisterIfExists("Facebook", config?.FacebookOAuth);
             RegisterIfExists("Line", config?.LineOAuth);
             RegisterIfExists("Azure", config?.AzureOAuth);
-			RegisterIfExists("Auth0", config?.Auth0OAuth);
+                        RegisterIfExists("Auth0", config?.Auth0OAuth);
+            RegisterIfExists("Okta", config?.OktaOAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)

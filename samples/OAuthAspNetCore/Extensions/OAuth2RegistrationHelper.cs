@@ -17,6 +17,7 @@ namespace OAuthAspNetCore.Extensions
             RegisterIfExists(manager, "Line", config?.LineOAuth, accessor);
             RegisterIfExists(manager, "Azure", config?.AzureOAuth, accessor);
             RegisterIfExists(manager, "Auth0", config?.Auth0OAuth, accessor);
+            RegisterIfExists(manager, "Okta", config?.OktaOAuth, accessor);
             return manager;
         }
 

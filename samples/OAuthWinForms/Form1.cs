@@ -23,6 +23,7 @@ namespace OAuthWinForms
             RegisterIfExists("Line", 600, 800, config?.LineOAuth);
             RegisterIfExists("Azure", 800, 600, config?.AzureOAuth);
             RegisterIfExists("Auth0", 800, 600, config?.Auth0OAuth);
+            RegisterIfExists("Okta", 800, 600, config?.OktaOAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)
@@ -109,6 +110,11 @@ namespace OAuthWinForms
         private void btnAuth0_Click(object sender, EventArgs e)
         {
             Login("Auth0");
+        }
+
+        private void btnOkta_Click(object sender, EventArgs e)
+        {
+            Login("Okta");
         }
     }
 }
