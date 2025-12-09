@@ -29,5 +29,13 @@
     "ClientSecret": "auth0-client-secret",
     "RedirectUri": "http://localhost/callback",
     "UsePKCE": true
+  },
+  "OktaOAuth": {
+    "Domain": "your-domain.okta.com",
+    "AuthorizationServerId": "default",
+    "ClientId": "okta-client-id",
+    "ClientSecret": "okta-client-secret",
+    "RedirectUri": "http://localhost/callback",
+    "UsePkce": true
   }
 }

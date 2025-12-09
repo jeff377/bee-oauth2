@@ -27,5 +27,12 @@
     "ClientId": "auth0-client-id",
     "ClientSecret": "auth0-client-secret",
     "RedirectUri": "https://localhost:7032/auth/callback"
+  },
+  "OktaOAuth": {
+    "Domain": "your-domain.okta.com",
+    "AuthorizationServerId": "default",
+    "ClientId": "okta-client-id",
+    "ClientSecret": "okta-client-secret",
+    "RedirectUri": "https://localhost:7032/auth/callback"
   }
 }

@@ -34,6 +34,7 @@
             this.btnLine = new System.Windows.Forms.Button();
             this.btnAzure = new System.Windows.Forms.Button();
             this.btnAuth0 = new System.Windows.Forms.Button();
+            this.btnOkta = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGoogle
@@ -99,12 +100,24 @@
             this.btnAuth0.Text = "Auth0";
             this.btnAuth0.UseVisualStyleBackColor = true;
             this.btnAuth0.Click += new System.EventHandler(this.btnAuth0_Click);
-            // 
+
+            // btnOkta
+            //
+            this.btnOkta.Location = new System.Drawing.Point(556, 318);
+            this.btnOkta.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnOkta.Name = "btnOkta";
+            this.btnOkta.Size = new System.Drawing.Size(100, 29);
+            this.btnOkta.TabIndex = 6;
+            this.btnOkta.Text = "Okta";
+            this.btnOkta.UseVisualStyleBackColor = true;
+            this.btnOkta.Click += new System.EventHandler(this.btnOkta_Click);
+            //
             // Form1
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(673, 362);
+            this.Controls.Add(this.btnOkta);
             this.Controls.Add(this.btnAuth0);
             this.Controls.Add(this.btnAzure);
             this.Controls.Add(this.btnLine);
@@ -131,6 +144,7 @@
         private System.Windows.Forms.Button btnLine;
         private System.Windows.Forms.Button btnAzure;
         private System.Windows.Forms.Button btnAuth0;
+        private System.Windows.Forms.Button btnOkta;
     }
 }
 

@@ -20,6 +20,7 @@ namespace OAuthDesktop
             RegisterIfExists("Line", 600, 800, config?.LineOAuth);
             RegisterIfExists("Azure", 800, 600, config?.AzureOAuth);
             RegisterIfExists("Auth0", 800, 600, config?.Auth0OAuth);
+            RegisterIfExists("Okta", 800, 600, config?.OktaOAuth);
         }
 
         private OAuthConfig LoadOAuthConfig(string filePath)
@@ -46,9 +47,9 @@ namespace OAuthDesktop
         }
 
         /// <summary>
-        /// Åã¥Ü OAuth2 ¾ã¦X»{ÃÒ¦^¶Çµ²ªG¡C
+        /// ï¿½ï¿½ï¿½ OAuth2 ï¿½ï¿½Xï¿½{ï¿½Ò¦^ï¿½Çµï¿½ï¿½Gï¿½C
         /// </summary>
-        /// <param name="result">±ÂÅv½X¨ú±o¬ÛÃö¸ê°Tªº¦^¶Çµ²ªG¡C</param>
+        /// <param name="result">ï¿½ï¿½ï¿½vï¿½Xï¿½ï¿½ï¿½oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tï¿½ï¿½ï¿½^ï¿½Çµï¿½ï¿½Gï¿½C</param>
         private void ShowResult(AuthorizationResult result)
         {
             if (result.Exception != null)
@@ -74,9 +75,9 @@ namespace OAuthDesktop
         }
 
         /// <summary>
-        /// °õ¦æµn¤J¡C
+        /// ï¿½ï¿½ï¿½ï¿½nï¿½Jï¿½C
         /// </summary>
-        /// <param name="clientName">¥Î¤áºÝ¦WºÙ¡C</param>
+        /// <param name="clientName">ï¿½Î¤ï¿½Ý¦Wï¿½Ù¡C</param>
         private async void Login(string clientName)
         {
             var result = await OAuth2Manager.Login(clientName);
@@ -106,6 +107,11 @@ namespace OAuthDesktop
         private void btnAuth0_Click(object sender, EventArgs e)
         {
             Login("Auth0");
+        }
+
+        private void btnOkta_Click(object sender, EventArgs e)
+        {
+            Login("Okta");
         }
     }
 }
