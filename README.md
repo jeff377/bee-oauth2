@@ -1,5 +1,20 @@
 ﻿# Bee.OAuth2
 
+> [!IMPORTANT]
+> **This repository is no longer maintained.** Bee.OAuth2 continues as
+> [Polhem.OAuth2](https://github.com/polhem-dev/polhem-oauth2). See
+> [Migrating from Bee.OAuth2](https://github.com/polhem-dev/polhem-oauth2#migrating-from-beeoauth2)
+> for what changed.
+>
+> **本 repo 已停止維護。** Bee.OAuth2 由 [Polhem.OAuth2](https://github.com/polhem-dev/polhem-oauth2) 接續，
+> 變更內容見[從 Bee.OAuth2 遷移](https://github.com/polhem-dev/polhem-oauth2/blob/main/README.zh-TW.md#從-beeoauth2-遷移)。
+
+| Bee.OAuth2 package | Replacement |
+|--------------------|-------------|
+| `Bee.OAuth2`, `Bee.OAuth2.WinForms`, `Bee.OAuth2.Desktop` | [`Polhem.OAuth2`](https://www.nuget.org/packages/Polhem.OAuth2) |
+| `Bee.OAuth2.AspNet` | [`Polhem.OAuth2.AspNet`](https://www.nuget.org/packages/Polhem.OAuth2.AspNet) |
+| `Bee.OAuth2.AspNetCore` | [`Polhem.OAuth2.AspNetCore`](https://www.nuget.org/packages/Polhem.OAuth2.AspNetCore) |
+
 Bee.OAuth2 is a .NET library for integrating OAuth2 authentication into various applications, including desktop and web.
 
 ## Projects in This Repository
